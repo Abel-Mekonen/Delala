@@ -5,7 +5,11 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.UniqueConstraint;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+
+
+import com.delala.delala.skill.Skill;
 
 import lombok.Data;
 
@@ -18,11 +22,17 @@ public class User {
     private Long id;
     @Column(unique=true)
     private String username;
+    private String password;
     private String firstName;
     private String lastName;
     private String email;
-    private String phoneNumber;
-    private String skill;
-    private String password;
     private String role;
+    private String phoneNumber;
+
+    @ManyToOne
+    @JoinColumn(name="skill_id")
+    private Skill skill;
+
+    
+    
 }

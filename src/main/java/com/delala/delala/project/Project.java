@@ -7,6 +7,10 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
+
+import com.delala.delala.skill.Skill;
+import com.delala.delala.user.User;
 
 import lombok.Data;
 
@@ -18,7 +22,10 @@ public class Project {
     private Long id;
     private String projectTitle;
     private String projectDescription;
-    private float price;
+    private String price;
+
+    @ManyToOne
+    @JoinColumn(name="skill_id")
     private Skill skillReq;
     
     @ManyToOne

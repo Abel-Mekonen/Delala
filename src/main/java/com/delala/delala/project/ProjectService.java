@@ -2,9 +2,10 @@ package com.delala.delala.project;
 
 import java.util.List;
 
+import com.delala.delala.user.User;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.RequestAttribute;
 import org.springframework.web.servlet.ModelAndView;
 
 @Service
