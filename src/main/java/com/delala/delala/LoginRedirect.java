@@ -49,7 +49,7 @@ public class LoginRedirect extends SimpleUrlAuthenticationSuccessHandler {
             }
         }
     
-        throw new IllegalStateException(); // rather than throwing exception, have a default url
+        throw new IllegalStateException();
     }
     
 }
