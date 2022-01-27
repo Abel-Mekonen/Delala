@@ -1,4 +1,4 @@
-package com.delala.delala;
+package com.delala.delala.security;
 
 import com.delala.delala.user.CustomUserDetailService;
 import com.delala.delala.user.UserRepository;
@@ -29,13 +29,11 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-        // the auth is injected by spring boot context
         auth.userDetailsService(userDetailsService);
     }
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        // the http is parameter is injected by spring boot context
         http.csrf().disable()
                 .authorizeRequests()
                 .antMatchers("/").permitAll()
