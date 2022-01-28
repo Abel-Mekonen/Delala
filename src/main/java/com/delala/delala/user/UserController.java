@@ -37,6 +37,11 @@ public class UserController {
     @Autowired
     SkillRepository skillRepository;
 
+    @GetMapping("/")
+    public String homePage() {
+        return "redirect:/login";
+    }
+
     @GetMapping("/talent-registration")
     public String talentRegistration(Model model) {
         model.addAttribute("registrationObject", new TalentRegistration());
@@ -111,9 +116,9 @@ public class UserController {
         return "login";
     }
 
-    @GetMapping("/user-profile")
-    public String userProfile(Principal principal, Model model) {
-        User user = userRepository.findByUsername(principal.getName());
+    @GetMapping("/user-profile/{id}")
+    public String userProfile(@PathVariable Long id, Model model) {
+        User  user = userRepository.findById(id).get();
         model.addAttribute("user", user);
         List<Skill>  skills =  ((List<Skill>) skillRepository.findAll());
         List<Skill> skillsSubList=skills.subList(2,skills.size());
@@ -122,8 +127,29 @@ public class UserController {
     }
 
     @PostMapping("/update-profile")
-    public String updateProfile(User user) {
-        userRepository.save(user);
+    public String updateProfile(Principal principal, User user) {
+        System.out.println("\n");
+        System.out.println("\n");
+        System.out.println("Inside post mapping");
+        System.out.println(principal.getName());
+        User user1 = userRepository.findByUsername(principal.getName());
+        System.out.println("\n");
+        System.out.println("\n");
+        System.out.println("\n");
+        // user1.setRole(user.getRole());
+        user1.setUsername(user.getUsername());
+        user1.setFirstName(user.getFirstName());
+        user1.setLastName(user.getLastName());
+        user1.setEmail(user.getEmail());
+        user1.setPhoneNumber(user.getPhoneNumber());
+        // user1.setSkill(user.getSkill());
+        String role = user1.getRole();
+        System.out.println("role: " + role);
+        user1.setRole(user1.getRole());
+        user1.setPassword(user1.getPassword());
+        user1.setSkill(user1.getSkill());
+        // user1.set
+        userRepository.save(user1);
         return "redirect:/user-profile";
     }
 
