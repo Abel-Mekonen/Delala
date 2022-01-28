@@ -43,5 +43,10 @@ public class projectController {
         return projectService.projectList();
     }
 
+    @GetMapping("/createProject")
+    public ModelAndView createProject(){
+        return projectService.createProject();
+    }
+
 
 }
