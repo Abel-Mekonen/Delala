@@ -22,7 +22,7 @@
     <div class="container w-50 my-auto ">
         <div class="rounded shadow p-3">
             <h1>Profile</h1>
-            <form th:action="@{${'/update-profile/' + user.id}}" method="post" th:object="${user}">
+            <form th:action="@{/update-profile}" method="post" th:object="${user}">
                 <!-- <input type="hidden" name="id" th:value="*{id}"> -->
                 <div class="mb-3">
                     <label for="username" class="form-label">Username</label>
