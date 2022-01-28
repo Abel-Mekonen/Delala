@@ -26,12 +26,8 @@
                 <input type="hidden" name="id" th:value="*{id}">
                 <div class="mb-3">
                     <label for="username" class="form-label">Username</label>
-                    <input type="text" class="form-control" disabled id="username" th:value="*{username}">
-                </div>
-                <div class=" mb-3">
-                    <label for="password" class="form-label">Password</label>
-                    <input type="password" class="form-control" id="password" th:field="*{password}"
-                        th:errorclass="is-invalid">
+                    <input type="text" class="form-control" disabled id="username" name="username"
+                        th:value="*{username}">
                 </div>
                 <div class="mb-3">
                     <label for="firstname" class="form-label">First name</label>
