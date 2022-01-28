@@ -1,5 +1,7 @@
 package com.delala.delala.user;
 
+import java.security.Principal;
+
 import com.delala.delala.skill.SkillRepository;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -59,6 +61,26 @@ public class UserController {
         return "login";
     }
 
+    @GetMapping("/user-profile")
+    public String userProfile(Principal principal, Model model) {
+        User user = userRepository.findByUsername(principal.getName());
+        model.addAttribute("user", user);
+        return "user-profile";
+    }
+
+    @PostMapping("/update-profile")
+    public String updateProfile(User user) {
+        userRepository.save(user);
+        return "redirect:/user-profile";
+    }
+
+    @PostMapping("/delete-account")
+    public String deleteAccount(Principal principal) {
+        userRepository.delete(userRepository.findByUsername(principal.getName()));
+        return "redirect:/register"; // TODO: we need a generic registration page
+    }
+
+    // utility function
     public User registeredUser(User user, String skill_id) {
         user.setSkill(skillRepository.findById(Long.parseLong(skill_id)).get());
         return user;
