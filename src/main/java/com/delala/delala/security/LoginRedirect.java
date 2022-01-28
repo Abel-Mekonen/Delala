@@ -37,9 +37,9 @@ public class LoginRedirect extends SimpleUrlAuthenticationSuccessHandler {
     protected String determineTargetUrl(final Authentication authentication) {
 
         Map<String, String> roleTargetUrlMap = new HashMap<>();
-        roleTargetUrlMap.put("ROLE_ADMIN", "/TEMPLATE_NAME");
-        roleTargetUrlMap.put("ROLE_TALENT", "/TEMPLATE_NAME");
-        roleTargetUrlMap.put("ROLE_EMPLOYER", "/TEMPLATE_NAME");
+        roleTargetUrlMap.put("ROLE_ADMIN", "/admin-projects");
+        roleTargetUrlMap.put("ROLE_TALENT", "/home");
+        roleTargetUrlMap.put("ROLE_EMPLOYER", "/myprojects");
     
         final Collection<? extends GrantedAuthority> authorities = authentication.getAuthorities();
         for (final GrantedAuthority grantedAuthority : authorities) {
