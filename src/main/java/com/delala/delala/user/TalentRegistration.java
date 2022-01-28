@@ -4,6 +4,8 @@ import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
+import com.delala.delala.skill.SkillRepository;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
@@ -34,8 +36,8 @@ public class TalentRegistration {
     // TODO: anotate it with size.
     private String phoneNumber;
 
-    // @Autowired 
-    // SkillRepository skillRepository;
+    @Autowired 
+    SkillRepository skillRepository;
 
    public User toUser(PasswordEncoder encoder) {
        User user = new User();
@@ -46,7 +48,7 @@ public class TalentRegistration {
        user.setPhoneNumber(this.phoneNumber);
        user.setPassword(encoder.encode(this.password));
        user.setRole("TALENT");
-    //    user.setSkill(skillRepository.getById(this.skill));
+       user.setSkill(skillRepository.getById(Long.parseLong(this.skill)));
        return user;
    }
 }
