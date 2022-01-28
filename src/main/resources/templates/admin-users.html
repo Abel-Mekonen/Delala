@@ -62,35 +62,27 @@
                 <tr>
                     <th>ID</th>
                     <th>Username</th>
-                    <th>Name</th>
-                    <th>Owner</th>
-                    <th>Description</th>
+                    <th>First name</th>
+                    <th>Last name</th>
+                    <th>Email</th>
+                    <th>Phone</th>
+                    <th>Role</th>
                     <th></th>
                 </tr>
             </thead>
             <tbody>
-                <tr>
-                    <td>1</td>
-                    <td>Web project frontend</td>
-                    <td>600</td>
-                    <td>Axumait</td>
-                    <td class="col-4">
-                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Maxime dicta sint earum repellat hic
-                        mollitia corrupti ad corporis provident magni consequuntur, placeat qui? Fugiat quas eos id
-                        itaque impedit soluta, unde omnis inventore dolorem numquam perspiciatis, a ut, explicabo cum
-                        voluptatum accusantium. Dicta aliquid facilis praesentium necessitatibus quaerat expedita
-                        nesciunt facere aperiam molestiae laudantium reiciendis nulla minima repellat, dolores unde.
-                        Laudantium quas, accusantium sed similique eius obcaecati! Sunt, ratione neque aut cupiditate,
-                        recusandae ullam ipsam tempora rerum possimus non consectetur modi culpa! Harum ab quasi, vel
-                        necessitatibus amet, deleniti quas voluptas suscipit, beatae earum dolore! Soluta ad nisi fugit
-                        eveniet.
-                    </td>
+                <tr th:each="u : ${users}" th:object="${u}">
+                    <td th:text="*{id}">Id</td>
+                    <th th:text="*{username}">Username</th>
+                    <th th:text="*{firstName}">First name</th>
+                    <th th:text="*{lastName}">Last name</th>
+                    <th th:text="*{email}">Email</th>
+                    <th th:text="*{phoneNumber}">Phone</th>
+                    <th th:text="*{role}">Role</th>
                     <td>
                         <div class="d-flex gap-3 flex-wrap">
-                            <form action="">
-                                <button type="submit" class="btn btn-primary">Edit</button>
-                            </form>
-                            <form action="">
+                            <form th:action="@{/delete-user}" method="post">
+                                <input type="hidden" name="id" th:value="*{id}">
                                 <button type="submit" class="btn btn-danger">Delete</button>
                             </form>
                         </div>
