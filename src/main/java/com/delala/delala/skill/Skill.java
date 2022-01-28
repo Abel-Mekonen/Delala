@@ -9,6 +9,7 @@ import javax.persistence.Id;
 
 import javax.persistence.OneToMany;
 
+import com.delala.delala.project.Project;
 import com.delala.delala.user.User;
 
 import lombok.Data;
@@ -25,4 +26,7 @@ public class Skill {
     
     @OneToMany
     private List<User> users;
+
+    @OneToMany
+    private List<Project> projects;
 }

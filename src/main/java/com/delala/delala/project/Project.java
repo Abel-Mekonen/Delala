@@ -7,12 +7,12 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToOne;
+
 
 import com.delala.delala.skill.Skill;
 import com.delala.delala.user.User;
 
-import com.delala.delala.skill.Skill;
+
 
 import lombok.Data;
 
