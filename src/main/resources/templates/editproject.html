@@ -13,7 +13,7 @@
         integrity="sha512-1ycn6IcaQQ40/MKBW2W4Rhis/DbILU74C1vSrLJxCq57o941Ym01SwNsOMqvEBFlcgUa6xLiPY/NS5R+E6ztJQ=="
         crossorigin="anonymous" referrerpolicy="no-referrer" />
 
-    <title>Home</title>
+    <title>Edit Project</title>
 </head>
 
 <body style="min-height: 100vh;" class="d-flex flex-column">
@@ -41,8 +41,9 @@
     </nav>
     <div class="container w-50 my-auto ">
         <div class="rounded shadow p-3">
-            <h1>Post Project</h1>
+            <h1>Edit Project</h1>
             <form th:action="@{/saveproject}" method="post" th:object="${project}">
+                <input type="hidden" name="id" th:value="*{id}">
                 <div class="mb-3">
                     <label for="projectTitle" class="form-label">Title</label>
                     <input type="text" class="form-control" id="projectTitle" th:field="*{projectTitle}"
@@ -75,7 +76,7 @@
                         <span th:errors="*{skill}"></span>
                     </div>
                 </div>
-                <button type="submit" class="btn btn-primary">Post</button>
+                <button type="submit" class="btn btn-primary">Update</button>
             </form>
         </div>
     </div>

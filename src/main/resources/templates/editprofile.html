@@ -59,33 +59,54 @@
     <div class="container w-50 my-auto ">
         <div class="rounded shadow p-3">
             <h1>Profile</h1>
-            <form action="">
+            <form th:action="@{/update-profile}" method="post" th:object="${user}">
+                <input type="hidden" name="id" th:value="*{id}">
                 <div class="mb-3">
-                    <label for="projecttitle" class="form-label">Title</label>
-                    <input type="text" class="form-control" name="" id="" placeholder="">
+                    <label for="username" class="form-label">Username</label>
+                    <input type="text" class="form-control disabled" id="username" th:field="*{username}"
+                        th:errorclass="is-invalid">
+                    <div class="invalid-feedback">
+                        <span th:errors="*{username}"></span>
+                    </div>
                 </div>
                 <div class="mb-3">
-                    <label for="" class="form-label">Description</label>
-                    <textarea class="form-control" name="" id="" rows="3"></textarea>
+                    <label for="password" class="form-label">Password</label>
+                    <input type="password" class="form-control" id="password" th:field="*{password}"
+                        th:errorclass="is-invalid">
                 </div>
                 <div class="mb-3">
-                    <label for="" class="form-label">Price</label>
-                    <input type="number" class="form-control" name="" id="" placeholder="">
+                    <label for="firstname" class="form-label">First name</label>
+                    <input type="text" class="form-control" th:field="*{firstName}" id="firstname"
+                        h:errorclass="is-invalid"></input>
+                    <div class="invalid-feedback">
+                        <span th:errors="*{firstName}"></span>
+                    </div>
                 </div>
                 <div class="mb-3">
-                    <label for="" class="form-label">Skills</label>
-                    <select multiple class="form-select" name="" id="">
-                        <option>C++</option>
-                        <option>P++</option>
-                    </select>
+                    <label for="lastname" class="form-label">Last name</label>
+                    <input type="text" class="form-control" th:field="*{lastName}" id="lastname"
+                        th:errorclass="is-invalid">
+                    <div class="invalid-feedback">
+                        <span th:errors="*{lastName}"></span>
+                    </div>
                 </div>
-                <button type="submit" class="btn btn-primary">Post</button>
-                <!--
-                    title
-                    description
-                    price
-                    skills
-                -->
+                <div class="mb-3">
+                    <label for="email" class="form-label">Email</label>
+                    <input type="email" class="form-control" th:field="*{email}" id="email" th:errorclass="is-invalid">
+                    <div class="invalid-feedback">
+                        <span th:errors="*{email}"></span>
+                    </div>
+                </div>
+                <div class="mb-3">
+                    <label for="phonenumber" class="form-label">Phone number</label>
+                    <input type="tel" class="form-control" th:field="*{phoneNumber}" id="phonenumber"
+                        th:errorclass="is-invalid">
+                    <div class="invalid-feedback">
+                        <span th:errors="*{phoneNumber}"></span>
+                    </div>
+                </div>
+
+                <button type="submit" class="btn btn-primary">Update</button>
             </form>
         </div>
     </div>

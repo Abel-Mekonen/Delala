@@ -6,6 +6,7 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
+import com.delala.delala.skill.Skill;
 import com.delala.delala.skill.SkillRepository;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,6 +17,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestAttribute;
 import org.springframework.web.servlet.ModelAndView;
@@ -38,7 +40,9 @@ public class UserController {
     @GetMapping("/talent-registration")
     public String talentRegistration(Model model) {
         model.addAttribute("registrationObject", new TalentRegistration());
-        model.addAttribute("skills", skillRepository.findAll());
+        List<Skill>  skills =  ((List<Skill>) skillRepository.findAll());
+        List<Skill> skillsSubList=skills.subList(2,skills.size());
+        model.addAttribute("skills",skillsSubList);
         return "talent-registration";
     }
 
@@ -90,6 +94,7 @@ public class UserController {
 
         
         if (errors.hasErrors()) {
+            log.error("Validation error on register talent : /n {}", errors);
             return "talent-registration";
         }
         User talentUser = registrationObject.toUser(passwordEncoder);
@@ -110,8 +115,10 @@ public class UserController {
     public String userProfile(Principal principal, Model model) {
         User user = userRepository.findByUsername(principal.getName());
         model.addAttribute("user", user);
-        model.addAttribute("skills", skillRepository.findAll());
-        return "user-profile";
+        List<Skill>  skills =  ((List<Skill>) skillRepository.findAll());
+        List<Skill> skillsSubList=skills.subList(2,skills.size());
+        model.addAttribute("skills",skillsSubList);
+        return "editProfile";
     }
 
     @PostMapping("/update-profile")
@@ -132,8 +139,8 @@ public class UserController {
         return user;
     }
 
-    @PostMapping("/delete-user")
-    public String deleteProject(@RequestAttribute("id") Long id, HttpServletRequest httpServletRequest) {
+    @PostMapping("/delete-user/{id}")
+    public String deleteProject(@PathVariable("id") Long id, HttpServletRequest httpServletRequest) {
         userRepository.deleteById(id);
         return "redirect:" + httpServletRequest.getHeader("Referer");
     }
