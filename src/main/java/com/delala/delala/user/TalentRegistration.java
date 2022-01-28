@@ -7,6 +7,8 @@ import javax.validation.constraints.Size;
 
 import com.delala.delala.skill.SkillRepository;
 
+import com.delala.delala.skill.SkillRepository;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
@@ -37,19 +39,19 @@ public class TalentRegistration {
     @Size(min = 10, max = 10, message = "Phone number must be 10 digits")
     private String phoneNumber;
 
-    @Autowired
+    @Autowired 
     SkillRepository skillRepository;
 
-    public User toUser(PasswordEncoder encoder) {
-        User user = new User();
-        user.setFirstName(this.firstName);
-        user.setLastName(this.lastName);
-        user.setUsername(this.username);
-        user.setEmail(this.email);
-        user.setPhoneNumber(this.phoneNumber);
-        user.setPassword(encoder.encode(this.password));
-        user.setRole("TALENT");
-        // user.setSkill(skillRepository.getById(this.skill));
-        return user;
-    }
+   public User toUser(PasswordEncoder encoder) {
+       User user = new User();
+       user.setFirstName(this.firstName);
+       user.setLastName(this.lastName);
+       user.setUsername(this.username);
+       user.setEmail(this.email);
+       user.setPhoneNumber(this.phoneNumber);
+       user.setPassword(encoder.encode(this.password));
+       user.setRole("TALENT");
+       user.setSkill(skillRepository.getById(Long.parseLong(this.skill)));
+       return user;
+   }
 }
