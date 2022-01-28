@@ -19,7 +19,7 @@
 <body>
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
         <div class="container-fluid">
-            <a class="px-1 navbar-brand" href="#">
+            <a class="px-1 navbar-brand" th:href="@{/home}">
                 <span class="h3 text-uppercase" style="color: rgb(73, 0, 204);">DELALA</span>
             </a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
@@ -30,27 +30,10 @@
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                     <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="#">Home</a>
+                        <a class="nav-link active" aria-current="page" th:href="@{/home}">Home</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Link</a>
-                    </li>
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
-                            data-bs-toggle="dropdown" aria-expanded="false">
-                            Dropdown
-                        </a>
-                        <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                            <li><a class="dropdown-item" href="#">Action</a></li>
-                            <li><a class="dropdown-item" href="#">Another action</a></li>
-                            <li>
-                                <hr class="dropdown-divider">
-                            </li>
-                            <li><a class="dropdown-item" href="#">Something else here</a></li>
-                        </ul>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>
+                        <a class="nav-link" href="@{/user-profile}">My Profile</a>
                     </li>
                 </ul>
             </div>
@@ -58,22 +41,24 @@
     </nav>
     <div class="container-fluid">
         <div class="row row-cols-4 mt-5 g-4 align-items-stretch">
-            <div class="col">
+            <div class="col" th:each="project : ${projects}" th:object="${project}">
                 <div class="card shadow border-0">
                     <div class="card-body">
                         <div class="d-flex justify-content-between w-100">
-                            <h3 class="card-title">Project Title</h3>
+                            <h3 class="card-title" th:text="*{projectTitle}">Project Title</h3>
                             <span
-                                class="badge rounded-pill bg-light text-dark d-flex align-items-center justify-content-center">Price
+                                class="badge rounded-pill bg-light text-dark d-flex align-items-center justify-content-center"
+                                th:text="*{price}">Price
                                 Here</span>
                         </div>
 
-                        <p class="card-text">Lorem, ipsum dolor sit amet consectetur adipisicing elit. Magnam sed earum
-                            veniam eaque eos, delectus illo placeat labore ea animi!</p>
+                        <p class="card-text" th:text="*{projectDescription}">Lorem, ipsum dolor sit amet consectetur
+                            adipisicing elit. Magnam sed earum
+                            veniam eaque eo , delectus illo placeat labore ea animi!</p>
                         <br>
                         <span>
                             Contact Here
-                            <a href="mailto:">jhon@gmail.com</a>
+                            <a th:href="|mailto:*{user.email}|">jhon@gmail.com</a>
                         </span>
                     </div>
                 </div>
