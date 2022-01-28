@@ -1,5 +1,5 @@
 <th:block sec:authorize="hasRole('ROLE_ADMIN')">
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <nav class="navbar navbar-expand-lg navbar-light shadow-sm">
         <div class="container-fluid">
             <a class="px-1 navbar-brand" th:href="#">
                 <span class="h3 text-uppercase" style="color: rgb(73, 0, 204);">DELALA</span>
@@ -30,7 +30,7 @@
 </th:block>
 
 <th:block sec:authorize="hasRole('ROLE_TALENT')">
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <nav class="navbar navbar-expand-lg navbar-light shadow-sm">
         <div class="container-fluid">
             <a class="px-1 navbar-brand" th:href="@{/home}">
                 <span class="h3 text-uppercase" style="color: rgb(73, 0, 204);">DELALA</span>
@@ -55,7 +55,7 @@
 </th:block>
 
 <th:block sec:authorize="hasRole('ROLE_EMPLOYER')">
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <nav class="navbar navbar-expand-lg navbar-light shadow-sm">
         <div class="container-fluid">
             <a class="px-1 navbar-brand" th:href="@{/myProjects}">
                 <span class="h3 text-uppercase" style="color: rgb(73, 0, 204);">DELALA</span>
