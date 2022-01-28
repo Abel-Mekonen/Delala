@@ -18,10 +18,10 @@ public class projectController {
     public ProjectService projectService;
     
 
-    // @GetMapping("/")
-    // public ModelAndView relatedUpdates(@AuthenticationPrincipal User user){
-    //     return relatedUpdates(user);
-    // }
+    @GetMapping("/SOME_PATH")
+    public ModelAndView relatedUpdates(@AuthenticationPrincipal User user){
+        return relatedUpdates(user);
+    }
 
     @GetMapping("/deleteProject")
     public String deleteProject(@RequestAttribute("projectId") Long id){

@@ -21,11 +21,17 @@ public class UserController {
     @Autowired
     SkillRepository skillRepository;
     
-    @GetMapping("/")
-    public String register(Model model) {
+    @GetMapping("/talent-registration")
+    public String talentRegistration(Model model) {
         model.addAttribute("registrationObject", new TalentRegistration());
         model.addAttribute("skills", skillRepository.findAll());
-        return "register";
+        return "talent-registration";
+    }
+
+    @GetMapping("/employer-registration")
+    public String employerRegistration(Model model) {
+        model.addAttribute("registrationObject", new EmployerRegistration());
+        return "employer-registration";
     }
 
     @PostMapping("/register")
@@ -33,15 +39,6 @@ public class UserController {
 
         User user = registrationObject.toUser(passwordEncoder);
         user = registeredUser(user, registrationObject.getSkill());
-        // System.out.println("\n");
-        // System.out.println("\n");
-        // System.out.println("\n");
-        // System.out.println("\n");
-        // System.out.println("Skill: " + registrationObject.getSkill());
-        // System.out.println("\n");
-        // System.out.println("\n");
-        // System.out.println("\n");
-        // System.out.println("\n");
         userRepository.save(user);
         return "login";
     }
