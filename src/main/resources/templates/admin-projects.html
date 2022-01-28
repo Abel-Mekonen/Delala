@@ -65,16 +65,17 @@
                     <th>Price</th>
                     <th>Owner</th>
                     <th>Description</th>
+                    <th>Skill Required</th>
                     <th></th>
                 </tr>
             </thead>
             <tbody>
-                <tr>
-                    <td>1</td>
-                    <td>Web project frontend</td>
-                    <td>600</td>
-                    <td>Axumait</td>
-                    <td class="col-4">
+                <tr th:each="pro : ${projects}" th:object="${pro}">
+                    <td th:text="*{id}">1</td>
+                    <td th:text="*{projectTitle}">Web project frontend</td>
+                    <td th:text="*{price}">600</td>
+                    <td th:text="|*{user.firstName} *{user.lastName}|">Axumait</td>
+                    <td class="col-4" th:text="*{projectDescription}">
                         Lorem ipsum dolor sit amet consectetur adipisicing elit. Maxime dicta sint earum repellat hic
                         mollitia corrupti ad corporis provident magni consequuntur, placeat qui? Fugiat quas eos id
                         itaque impedit soluta, unde omnis inventore dolorem numquam perspiciatis, a ut, explicabo cum
@@ -85,12 +86,15 @@
                         necessitatibus amet, deleniti quas voluptas suscipit, beatae earum dolore! Soluta ad nisi fugit
                         eveniet.
                     </td>
+                    <td th:text="*{skill}"></td>
                     <td>
                         <div class="d-flex gap-3 flex-wrap">
-                            <form action="">
+                            <form th:action="@{updateProject}">
+                                <input type="hidden" name="projectId" th:value="*{id}">
                                 <button type="submit" class="btn btn-primary">Edit</button>
                             </form>
-                            <form action="">
+                            <form th:action="@{/deleteProject}">
+                                <input type="hidden" name="projectId" th:value="*{id}">
                                 <button type="submit" class="btn btn-danger">Delete</button>
                             </form>
                         </div>
