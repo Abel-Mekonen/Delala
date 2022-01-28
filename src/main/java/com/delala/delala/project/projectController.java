@@ -5,10 +5,10 @@ import java.security.Principal;
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
-import com.delala.delala.user.CustomUserDetail;
+
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -45,11 +45,11 @@ public class projectController {
 
     @PostMapping("/saveProject")
     public String saveProject(@Valid @ModelAttribute("project") Project project, HttpServletRequest httpServletRequest,
-            BindingResult bindingResult) {
+            BindingResult bindingResult,Principal principal) {
         if (bindingResult.hasErrors()) {
             return "createproject";
         }
-        return projectService.saveProject(project, httpServletRequest);
+        return projectService.saveProject(project, httpServletRequest,principal);
     }
 
     @GetMapping("/projectList")
