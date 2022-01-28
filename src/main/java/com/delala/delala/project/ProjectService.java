@@ -23,13 +23,12 @@ public class ProjectService {
     @Autowired
     public SkillRepository skillRepository;
 
-    @Autowired 
+    @Autowired
     public UserRepository userRepository;
-
 
     public ModelAndView relatedUpdates(Principal principal) {
         ModelAndView modelAndView = new ModelAndView("home");
-        User user=userRepository.findByUsername(principal.getName());
+        User user = userRepository.findByUsername(principal.getName());
         List<Project> projects = projectRepository.findBySkill(user.getSkill());
         modelAndView.addObject("projects", projects);
         modelAndView.addObject("user", user);
@@ -49,15 +48,15 @@ public class ProjectService {
     }
 
     public ModelAndView updateProject(Long id) {
-        ModelAndView modelAndView = new ModelAndView("");
+        ModelAndView modelAndView = new ModelAndView("editproject");
         Project project = projectRepository.findById(id).get();
         modelAndView.addObject("project", project);
         return modelAndView;
 
     }
 
-    public String saveProject(Project project, HttpServletRequest httpServletRequest,Principal principal) {
-        User user=userRepository.findByUsername(principal.getName());
+    public String saveProject(Project project, HttpServletRequest httpServletRequest, Principal principal) {
+        User user = userRepository.findByUsername(principal.getName());
         project.setUser(user);
         projectRepository.save(project);
         return "redirect:" + httpServletRequest.getHeader("referer");
@@ -70,10 +69,10 @@ public class ProjectService {
         return modelAndView;
     }
 
-    public ModelAndView myProjects(Principal principal){
-        ModelAndView modelAndView=new ModelAndView("myprojects");
-        User user=userRepository.findByUsername(principal.getName());
-        List<Project> projects=projectRepository.findByUser(user);
+    public ModelAndView myProjects(Principal principal) {
+        ModelAndView modelAndView = new ModelAndView("myprojects");
+        User user = userRepository.findByUsername(principal.getName());
+        List<Project> projects = projectRepository.findByUser(user);
         modelAndView.addObject("projects", projects);
         return modelAndView;
     }
