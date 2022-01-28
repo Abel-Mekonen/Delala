@@ -7,15 +7,24 @@ import javax.validation.constraints.Size;
 
 import com.delala.delala.skill.SkillRepository;
 
+<<<<<<< HEAD
 
 
+=======
+>>>>>>> f26b1d1080d34d81d0b33d2399e7892eb0ee0d54
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.stereotype.Controller;
 
 import lombok.Data;
 
 @Data
+@Controller
 public class TalentRegistration {
+
+    @Autowired 
+    SkillRepository skillRepository;
+    
     @NotNull(message = "Invalid Username")
     @NotBlank(message = "Username can't be blank")
     private String username;
@@ -39,9 +48,6 @@ public class TalentRegistration {
     @Size(min = 10, max = 10, message = "Phone number must be 10 digits")
     private String phoneNumber;
 
-    @Autowired 
-    SkillRepository skillRepository;
-
    public User toUser(PasswordEncoder encoder) {
        User user = new User();
        user.setFirstName(this.firstName);
@@ -51,7 +57,7 @@ public class TalentRegistration {
        user.setPhoneNumber(this.phoneNumber);
        user.setPassword(encoder.encode(this.password));
        user.setRole("TALENT");
-       user.setSkill(skillRepository.getById(Long.parseLong(this.skill)));
+    //    System.out.println(skillRepository == null);
        return user;
    }
 }

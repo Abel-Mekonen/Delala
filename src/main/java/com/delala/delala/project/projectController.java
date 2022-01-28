@@ -20,10 +20,17 @@ public class projectController {
     public ProjectService projectService;
     
 
+<<<<<<< HEAD
     @GetMapping("/relatedUpdates")
     public ModelAndView relatedUpdates(@AuthenticationPrincipal User user){
         return projectService.relatedUpdates(user);
     }
+=======
+    // @GetMapping("/")
+    // public ModelAndView relatedUpdates(@AuthenticationPrincipal User user){
+    //     return relatedUpdates(user);
+    // }
+>>>>>>> f26b1d1080d34d81d0b33d2399e7892eb0ee0d54
 
     @GetMapping("/deleteProject")
     public String deleteProject(@RequestAttribute("projectId") Long id,HttpServletRequest httpServletRequest){

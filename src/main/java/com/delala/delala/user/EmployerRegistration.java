@@ -7,8 +7,11 @@ import javax.validation.constraints.Size;
 
 import com.delala.delala.skill.SkillRepository;
 
+<<<<<<< HEAD
 
 
+=======
+>>>>>>> f26b1d1080d34d81d0b33d2399e7892eb0ee0d54
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
@@ -35,7 +38,6 @@ public class EmployerRegistration {
     @NotNull(message = "First Name can't be null")
     @NotBlank(message = "First Name can't be blank")
     private String role;
-    private String skill;
     @Size(min = 10, max = 10, message = "Phone number must be 10 digits")
     private String phoneNumber;
 
@@ -51,7 +53,6 @@ public class EmployerRegistration {
        user.setPhoneNumber(this.phoneNumber);
        user.setPassword(encoder.encode(this.password));
        user.setRole("TALENT");
-       user.setSkill(skillRepository.getById(Long.parseLong(this.skill)));
        return user;
    }
 }
