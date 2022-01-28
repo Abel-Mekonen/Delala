@@ -7,11 +7,6 @@ import javax.validation.constraints.Size;
 
 import com.delala.delala.skill.SkillRepository;
 
-<<<<<<< HEAD
-
-
-=======
->>>>>>> f26b1d1080d34d81d0b33d2399e7892eb0ee0d54
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
