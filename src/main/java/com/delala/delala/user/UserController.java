@@ -59,10 +59,10 @@ public class UserController {
         return modelAndView;
     }
 
-    @PostMapping("/reigsterEmployer")
-    public String registerEmployer(@Valid @ModelAttribute EmployerRegistration employerRegistration,
-            BindingResult bindingResult) {
-        if (bindingResult.hasErrors()) {
+    @PostMapping("/registerEmployer")
+    public String registerEmployer(@Valid @ModelAttribute("registerEmployer") EmployerRegistration employerRegistration,
+            Errors errors) {
+        if (errors.hasErrors()) {
             return "employer-registration";
         }
         User user = employerRegistration.toUser(passwordEncoder);
