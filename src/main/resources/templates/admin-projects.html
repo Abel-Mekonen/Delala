@@ -48,13 +48,9 @@
                         necessitatibus amet, deleniti quas voluptas suscipit, beatae earum dolore! Soluta ad nisi fugit
                         eveniet.
                     </td>
-                    <td th:text="*{skill}"></td>
+                    <td th:text="*{skill.name}"></td>
                     <td>
                         <div class="d-flex gap-3 flex-wrap">
-                            <form th:action="@{updateProject}">
-                                <input type="hidden" name="projectId" th:value="*{id}">
-                                <button type="submit" class="btn btn-primary">Edit</button>
-                            </form>
                             <form th:action="@{/deleteProject}">
                                 <input type="hidden" name="projectId" th:value="*{id}">
                                 <button type="submit" class="btn btn-danger">Delete</button>
