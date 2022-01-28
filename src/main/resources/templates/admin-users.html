@@ -81,8 +81,8 @@
                     <th th:text="*{role}">Role</th>
                     <td>
                         <div class="d-flex gap-3 flex-wrap">
-                            <form th:action="@{/delete-user}" method="post">
-                                <input type="hidden" name="id" th:value="*{id}">
+                            <form th:action="|@{/delete-user}/*{id}|" method="post">
+                                <!-- <input type="hidden" name="id" th:value="*{id}"> -->
                                 <button type="submit" class="btn btn-danger">Delete</button>
                             </form>
                         </div>

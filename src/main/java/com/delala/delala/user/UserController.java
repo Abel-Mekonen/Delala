@@ -16,6 +16,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestAttribute;
 import org.springframework.web.servlet.ModelAndView;
@@ -131,8 +132,8 @@ public class UserController {
         return user;
     }
 
-    @PostMapping("/delete-user")
-    public String deleteProject(@RequestAttribute Long id, HttpServletRequest httpServletRequest) {
+    @PostMapping("/delete-user/{id}")
+    public String deleteProject(@PathVariable("id") Long id, HttpServletRequest httpServletRequest) {
         userRepository.deleteById(id);
         return "redirect:" + httpServletRequest.getHeader("Referer");
     }
