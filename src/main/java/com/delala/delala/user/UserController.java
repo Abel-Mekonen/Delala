@@ -1,6 +1,7 @@
 package com.delala.delala.user;
 
 import java.security.Principal;
+import java.util.List;
 
 import com.delala.delala.skill.SkillRepository;
 
@@ -10,6 +11,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.servlet.ModelAndView;
 
 @Controller
 public class UserController {
@@ -44,6 +46,27 @@ public class UserController {
     //     userRepository.save(user);
     //     return "login";
     // }
+    @GetMapping("/registerEmployer")
+    public ModelAndView registerEmployer(){
+        ModelAndView modelAndView=new ModelAndView("");
+        modelAndView.addObject("registerEmployer", new EmployerRegistration());
+        return modelAndView;
+    }
+    @PostMapping("/reigsterEmployer")
+    public String registerEmployer(EmployerRegistration employerRegistration){
+        User user=employerRegistration.toUser(passwordEncoder);
+        user.setSkill(skillRepository.findById(Long.parseLong("2")).get());
+        userRepository.save(user);
+        return "redirect:/login";
+    }
+
+   @GetMapping("/admin/users")
+   public ModelAndView users(){
+       ModelAndView modelAndView=new ModelAndView("admin-users");
+       List<User> users=(List<User>) userRepository.findAll();
+       modelAndView.addObject("users", users);
+       return modelAndView;
+   }
 
     @PostMapping("/talent-registration")
     public String registerTalent(TalentRegistration registrationObject) {
