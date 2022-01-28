@@ -21,28 +21,41 @@ public class UserController {
     @Autowired
     SkillRepository skillRepository;
     
-    @GetMapping("/")
-    public String register(Model model) {
+    @GetMapping("/talent-registration")
+    public String talentRegistration(Model model) {
         model.addAttribute("registrationObject", new TalentRegistration());
         model.addAttribute("skills", skillRepository.findAll());
-        return "register";
+        return "talent-registration";
     }
 
-    @PostMapping("/register")
-    public String registerUser(TalentRegistration registrationObject) {
+    @GetMapping("/admin-registration")
+    public String employerRegistration(Model model) {
+        model.addAttribute("registrationObject", new AdminRegistration());
+        return "admin-registration";
+    }
 
-        User user = registrationObject.toUser(passwordEncoder);
-        user = registeredUser(user, registrationObject.getSkill());
-        // System.out.println("\n");
-        // System.out.println("\n");
-        // System.out.println("\n");
-        // System.out.println("\n");
-        // System.out.println("Skill: " + registrationObject.getSkill());
-        // System.out.println("\n");
-        // System.out.println("\n");
-        // System.out.println("\n");
-        // System.out.println("\n");
-        userRepository.save(user);
+    // @PostMapping("/talent-registration")
+    // public String registerUser(TalentRegistration registrationObject) {
+
+    //     User user = registrationObject.toUser(passwordEncoder);
+    //     user = registeredUser(user, registrationObject.getSkill());
+    //     userRepository.save(user);
+    //     return "login";
+    // }
+
+    @PostMapping("/talent-registration")
+    public String registerTalent(TalentRegistration registrationObject) {
+        User talentUser = registrationObject.toUser(passwordEncoder);
+        talentUser = registeredUser(talentUser, registrationObject.getSkill());
+        userRepository.save(talentUser);
+        return "login";
+    }
+
+    @PostMapping("/admin-registration")
+    public String registerEmployer(AdminRegistration registrationObject) {
+        User adminUser = registrationObject.toUser(passwordEncoder);
+        adminUser.setSkill(skillRepository.findById(1L).get());
+        userRepository.save(adminUser);
         return "login";
     }
 

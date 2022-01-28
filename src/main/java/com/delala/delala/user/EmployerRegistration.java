@@ -52,7 +52,7 @@ public class EmployerRegistration {
        user.setEmail(this.email);
        user.setPhoneNumber(this.phoneNumber);
        user.setPassword(encoder.encode(this.password));
-       user.setRole("TALENT");
+       user.setRole("EMPLOYER");
        return user;
    }
 }

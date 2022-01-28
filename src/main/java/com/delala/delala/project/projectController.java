@@ -21,6 +21,7 @@ public class projectController {
     
 
 <<<<<<< HEAD
+<<<<<<< HEAD
     @GetMapping("/relatedUpdates")
     public ModelAndView relatedUpdates(@AuthenticationPrincipal User user){
         return projectService.relatedUpdates(user);
@@ -31,6 +32,12 @@ public class projectController {
     //     return relatedUpdates(user);
     // }
 >>>>>>> f26b1d1080d34d81d0b33d2399e7892eb0ee0d54
+=======
+    @GetMapping("/SOME_PATH")
+    public ModelAndView relatedUpdates(@AuthenticationPrincipal User user){
+        return relatedUpdates(user);
+    }
+>>>>>>> 44cbc96a13cc6a5b4a78eeedb8f9af560b3ec1bc
 
     @GetMapping("/deleteProject")
     public String deleteProject(@RequestAttribute("projectId") Long id,HttpServletRequest httpServletRequest){
