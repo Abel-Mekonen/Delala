@@ -56,7 +56,9 @@ public class ProjectService {
 
     }
 
-    public String saveProject(Project project, HttpServletRequest httpServletRequest) {
+    public String saveProject(Project project, HttpServletRequest httpServletRequest,Principal principal) {
+        User user=userRepository.findByUsername(principal.getName());
+        project.setUser(user);
         projectRepository.save(project);
         return "redirect:" + httpServletRequest.getHeader("referer");
     }
