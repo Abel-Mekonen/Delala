@@ -2,6 +2,8 @@ package com.delala.delala.project;
 
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+
 import com.delala.delala.user.User;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,15 +17,15 @@ public class ProjectService {
     public ProjectRepository projectRepository;
 
     public ModelAndView relatedUpdates(User user) {
-        ModelAndView modelAndView = new ModelAndView("");
+        ModelAndView modelAndView = new ModelAndView("home");
         List<Project> projects = projectRepository.findBySkill(user.getSkill());
         modelAndView.addObject("projects", projects);
         return modelAndView;
     }
 
-    public String deleteProject(Long id) {
+    public String deleteProject(Long id,HttpServletRequest httpServletRequest) {
         projectRepository.deleteById(id);
-        return "redirect:/";
+        return "redirect:" + httpServletRequest.getHeader("Referer");
     }
 
     public ModelAndView createProject() {
@@ -40,13 +42,13 @@ public class ProjectService {
 
     }
 
-    public String saveProject(Project project) {
+    public String saveProject(Project project,HttpServletRequest httpServletRequest) {
         projectRepository.save(project);
-        return "redirect:/";
+        return "redirect:"+ httpServletRequest.getHeader("referer");
     }
 
     public ModelAndView projectList() {
-        ModelAndView modelAndView = new ModelAndView("");
+        ModelAndView modelAndView = new ModelAndView("admin-projects");
         List<Project> projects = projectRepository.findAll();
         modelAndView.addObject("projects", projects);
         return modelAndView;

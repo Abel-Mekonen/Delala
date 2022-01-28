@@ -1,5 +1,7 @@
 package com.delala.delala.project;
 
+import javax.servlet.http.HttpServletRequest;
+
 import com.delala.delala.user.User;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,14 +20,14 @@ public class projectController {
     public ProjectService projectService;
     
 
-    @GetMapping("/")
+    @GetMapping("/relatedUpdates")
     public ModelAndView relatedUpdates(@AuthenticationPrincipal User user){
-        return relatedUpdates(user);
+        return projectService.relatedUpdates(user);
     }
 
     @GetMapping("/deleteProject")
-    public String deleteProject(@RequestAttribute("projectId") Long id){
-        return projectService.deleteProject(id);
+    public String deleteProject(@RequestAttribute("projectId") Long id,HttpServletRequest httpServletRequest){
+        return projectService.deleteProject(id,httpServletRequest);
     }
 
     @GetMapping("/updateProject")
@@ -34,8 +36,8 @@ public class projectController {
     }
     
     @PostMapping("/saveProject")
-    public String saveProject(@ModelAttribute("project")Project project){
-        return projectService.saveProject(project);
+    public String saveProject(@ModelAttribute("project")Project project,HttpServletRequest httpServletRequest){
+        return projectService.saveProject(project,httpServletRequest);
     }
 
     @GetMapping("/projectList")
