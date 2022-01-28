@@ -96,7 +96,7 @@ public class UserController {
     public String userProfile(Principal principal, Model model) {
         User user = userRepository.findByUsername(principal.getName());
         model.addAttribute("user", user);
-        return "user-profile";
+        return "editProfile";
     }
 
     @PostMapping("/update-profile")
