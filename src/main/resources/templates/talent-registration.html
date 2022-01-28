@@ -35,41 +35,60 @@
 
                             <div class="form-outline mb-4">
                                 <input type="text" id="form2Example20" class="form-control form-control-lg"
-                                    th:field="*{firstName}" />
+                                    th:field="*{firstName}" th:errorclass="is-invalid" />
                                 <label class="form-label" for="form2Example20">First name</label>
+                                <div class="invalid-feedback">
+                                    <span th:errors="*{firstName}"></span>
+                                </div>
                             </div>
 
-                            <div class="form-outline mb-4">
+                            <div class=" form-outline mb-4">
                                 <input type="text" id="form2Example19" class="form-control form-control-lg"
-                                    th:field="*{lastName}" />
+                                    th:field="*{lastName}" th:errorclass="is-invalid" />
                                 <label class="form-label" for="form2Example19">Last name</label>
+                                <div class="invalid-feedback">
+                                    <span th:errors="*{lastName}"></span>
+                                </div>
                             </div>
 
                             <div class="form-outline mb-4">
                                 <input type="email" id="form2Example18" class="form-control form-control-lg"
-                                    th:field="*{email}" />
+                                    th:field="*{email}" th:errorclass="is-invalid" />
                                 <label class="form-label" for="form2Example18">Email address</label>
+                                <div class="invalid-feedback">
+                                    <span th:errors="*{email}"></span>
+                                </div>
                             </div>
 
                             <div class="form-outline mb-4">
                                 <input type="text" id="form2Example1" class="form-control form-control-lg"
-                                    th:field="*{username}" />
+                                    th:field="*{username}" th:errorclass="is-invalid" />
                                 <label class="form-label" for="form2Example1">User name</label>
+                                <div class="invalid-feedback">
+                                    <span th:errors="*{username}"></span>
+                                </div>
                             </div>
 
                             <div class="form-outline mb-4">
                                 <input type="password" id="form2Example28" class="form-control form-control-lg"
-                                    th:field="*{password}" />
+                                    th:field="*{password}" th:errorclass="is-invalid" />
                                 <label class="form-label" for="form2Example28">Password</label>
+                                <div class="invalid-feedback">
+                                    <span th:errors="*{password}"></span>
+                                </div>
                             </div>
                             <div class="form-outline mb-4">
-                                <select class="form-select" aria-label="Default select example" th:field="*{skill}">
+                                <select class="form-select" aria-label="Default select example" th:field="*{skill}"
+                                    th:errorclass="is-invalid">
                                     <!-- <option selected>Open this select menu</option> -->
                                     <option th:each="skill: ${skills}" th:value="${skill.id}" th:text="${skill.name}">
                                         skills
                                     </option>
                                 </select>
                                 <label class="form-label" for="form2Example28">Skill</label>
+                                <div class="invalid-feedback">
+                                    <span th:errors="*{skill}"></span>
+                                </div>
                             </div>
 
 
@@ -77,7 +96,8 @@
                                 <button class="btn btn-primary btn-lg btn-block" type="submit">Register</button>
                             </div>
 
-                            <p>Already have an account? <a th:href="@{/login}" class="link-secondary">Login here</a></p>
+                            <p>Already have an account? <a th:href="@{/login}" class="link-secondary">Login here</a>
+                            </p>
 
                         </form>
 
