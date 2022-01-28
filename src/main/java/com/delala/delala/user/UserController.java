@@ -88,6 +88,7 @@ public class UserController {
     public String registerTalent(@Valid @ModelAttribute("registrationObject") TalentRegistration registrationObject,
             Errors errors) {
         if (errors.hasErrors()) {
+            log.error("Validation error on register talent : /n {}", errors);
             return "talent-registration";
         }
         User talentUser = registrationObject.toUser(passwordEncoder);

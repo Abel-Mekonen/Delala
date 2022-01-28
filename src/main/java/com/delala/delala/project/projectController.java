@@ -17,7 +17,10 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestAttribute;
 import org.springframework.web.servlet.ModelAndView;
 
+import lombok.extern.slf4j.Slf4j;
+
 @Controller
+@Slf4j
 public class projectController {
 
     @Autowired
@@ -47,6 +50,7 @@ public class projectController {
     public String saveProject(@Valid @ModelAttribute("project") Project project, HttpServletRequest httpServletRequest,
             BindingResult bindingResult,Principal principal) {
         if (bindingResult.hasErrors()) {
+            log.error("Save project failed due to validation errors \n{}", bindingResult.getAllErrors());
             return "createproject";
         }
         return projectService.saveProject(project, httpServletRequest,principal);
@@ -67,5 +71,4 @@ public class projectController {
         return projectService.createProject();
     }
 
-   
 }
