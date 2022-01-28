@@ -116,9 +116,10 @@ public class UserController {
         return "login";
     }
 
-    @GetMapping("/user-profile/{id}")
-    public String userProfile(@PathVariable Long id, Model model) {
-        User  user = userRepository.findById(id).get();
+    @GetMapping("/user-profile")
+    public String userProfile(Principal principal, Model model) {
+        // User  user = userRepository.findById(id).get();
+        User user = userRepository.findByUsername(principal.getName());
         model.addAttribute("user", user);
         List<Skill>  skills =  ((List<Skill>) skillRepository.findAll());
         List<Skill> skillsSubList=skills.subList(2,skills.size());
