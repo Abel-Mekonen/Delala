@@ -17,6 +17,7 @@ import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestAttribute;
 import org.springframework.web.servlet.ModelAndView;
 
 import lombok.extern.slf4j.Slf4j;
@@ -129,8 +130,8 @@ public class UserController {
         return user;
     }
 
-    @GetMapping("/delete-User")
-    public String deleteProject(Long id, HttpServletRequest httpServletRequest) {
+    @PostMapping("/delete-user")
+    public String deleteProject(@RequestAttribute Long id, HttpServletRequest httpServletRequest) {
         userRepository.deleteById(id);
         return "redirect:" + httpServletRequest.getHeader("Referer");
     }
