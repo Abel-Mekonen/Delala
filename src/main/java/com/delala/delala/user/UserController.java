@@ -3,13 +3,18 @@ package com.delala.delala.user;
 import java.security.Principal;
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.validation.Valid;
+
 import com.delala.delala.skill.SkillRepository;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -48,19 +53,22 @@ public class UserController {
     // }
     @GetMapping("/registerEmployer")
     public ModelAndView registerEmployer(){
-        ModelAndView modelAndView=new ModelAndView("");
+        ModelAndView modelAndView=new ModelAndView("employer-registration");
         modelAndView.addObject("registerEmployer", new EmployerRegistration());
         return modelAndView;
     }
     @PostMapping("/reigsterEmployer")
-    public String registerEmployer(EmployerRegistration employerRegistration){
+    public String registerEmployer(@Valid @ModelAttribute EmployerRegistration employerRegistration,BindingResult bindingResult){
+        if(bindingResult.hasErrors()){
+            return "employer-registration";
+        }
         User user=employerRegistration.toUser(passwordEncoder);
         user.setSkill(skillRepository.findById(Long.parseLong("2")).get());
         userRepository.save(user);
         return "redirect:/login";
     }
 
-   @GetMapping("/admin/users")
+   @GetMapping("users")
    public ModelAndView users(){
        ModelAndView modelAndView=new ModelAndView("admin-users");
        List<User> users=(List<User>) userRepository.findAll();
@@ -107,5 +115,11 @@ public class UserController {
     public User registeredUser(User user, String skill_id) {
         user.setSkill(skillRepository.findById(Long.parseLong(skill_id)).get());
         return user;
+    }
+
+    @GetMapping("/deleteUser")
+    public String deleteProject(Long id,HttpServletRequest httpServletRequest) {
+        userRepository.deleteById(id);
+        return "redirect:" + httpServletRequest.getHeader("Referer");
     }
 }
