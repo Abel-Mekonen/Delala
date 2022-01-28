@@ -28,18 +28,34 @@ public class UserController {
         return "talent-registration";
     }
 
-    @GetMapping("/employer-registration")
+    @GetMapping("/admin-registration")
     public String employerRegistration(Model model) {
-        model.addAttribute("registrationObject", new EmployerRegistration());
-        return "employer-registration";
+        model.addAttribute("registrationObject", new AdminRegistration());
+        return "admin-registration";
     }
 
-    @PostMapping("/register")
-    public String registerUser(TalentRegistration registrationObject) {
+    // @PostMapping("/talent-registration")
+    // public String registerUser(TalentRegistration registrationObject) {
 
-        User user = registrationObject.toUser(passwordEncoder);
-        user = registeredUser(user, registrationObject.getSkill());
-        userRepository.save(user);
+    //     User user = registrationObject.toUser(passwordEncoder);
+    //     user = registeredUser(user, registrationObject.getSkill());
+    //     userRepository.save(user);
+    //     return "login";
+    // }
+
+    @PostMapping("/talent-registration")
+    public String registerTalent(TalentRegistration registrationObject) {
+        User talentUser = registrationObject.toUser(passwordEncoder);
+        talentUser = registeredUser(talentUser, registrationObject.getSkill());
+        userRepository.save(talentUser);
+        return "login";
+    }
+
+    @PostMapping("/admin-registration")
+    public String registerEmployer(AdminRegistration registrationObject) {
+        User adminUser = registrationObject.toUser(passwordEncoder);
+        adminUser.setSkill(skillRepository.findById(1L).get());
+        userRepository.save(adminUser);
         return "login";
     }
 
