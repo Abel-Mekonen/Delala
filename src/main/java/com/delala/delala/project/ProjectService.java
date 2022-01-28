@@ -7,6 +7,7 @@ import javax.servlet.http.HttpServletRequest;
 
 import com.delala.delala.skill.SkillRepository;
 import com.delala.delala.user.User;
+import com.delala.delala.user.UserRepository;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -21,11 +22,16 @@ public class ProjectService {
     @Autowired
     public SkillRepository skillRepository;
 
+    @Autowired 
+    public UserRepository userRepository;
+
+
     public ModelAndView relatedUpdates(Principal principal) {
         ModelAndView modelAndView = new ModelAndView("home");
-        List<Project> projects = projectRepository.findBySkill(((User) principal).getSkill());
+        User user=userRepository.findByUsername(principal.getName());
+        List<Project> projects = projectRepository.findBySkill(user.getSkill());
         modelAndView.addObject("projects", projects);
-        modelAndView.addObject("user", (User) principal);
+        modelAndView.addObject("user", user);
         return modelAndView;
     }
 
