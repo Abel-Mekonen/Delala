@@ -47,7 +47,7 @@ public class projectController {
     public String saveProject(@Valid @ModelAttribute("project") Project project, HttpServletRequest httpServletRequest,
             BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
-            return "redirect:" + httpServletRequest.getHeader("referer");
+            return "createproject";
         }
         return projectService.saveProject(project, httpServletRequest);
     }
@@ -57,9 +57,15 @@ public class projectController {
         return projectService.projectList();
     }
 
+    @GetMapping("/myProjects")
+    public ModelAndView myProjects(Principal principal) {
+        return projectService.myProjects(principal);
+    }
+
     @GetMapping("/createProject")
     public ModelAndView createProject() {
         return projectService.createProject();
     }
 
+   
 }
