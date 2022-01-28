@@ -22,7 +22,7 @@
     <div class="container w-50 my-auto ">
         <div class="rounded shadow p-3">
             <h1>Post Project</h1>
-            <form th:action="@{/createproject}" method="post" th:object="${project}">
+            <form th:action="@{/saveproject}" method="post" th:object="${project}">
                 <div class="mb-3">
                     <label for="projectTitle" class="form-label">Title</label>
                     <input type="text" class="form-control" id="projectTitle" th:field="*{projectTitle}"

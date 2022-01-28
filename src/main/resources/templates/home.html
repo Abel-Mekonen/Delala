@@ -37,7 +37,7 @@
                         <br>
                         <span>
                             Contact Here
-                            <a th:href="|mailto:*{user.email}|">jhon@gmail.com</a>
+                            <a th:href="|mailto:*{user.email}|" th:text="*{user.email}"></a>
                         </span>
                     </div>
                 </div>

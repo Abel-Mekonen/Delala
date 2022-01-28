@@ -6,6 +6,7 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
+import com.delala.delala.skill.Skill;
 import com.delala.delala.skill.SkillRepository;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,10 +37,17 @@ public class UserController {
     @Autowired
     SkillRepository skillRepository;
 
+    @GetMapping("/")
+    public String homePage() {
+        return "redirect:/login";
+    }
+
     @GetMapping("/talent-registration")
     public String talentRegistration(Model model) {
         model.addAttribute("registrationObject", new TalentRegistration());
-        model.addAttribute("skills", skillRepository.findAll());
+        List<Skill>  skills =  ((List<Skill>) skillRepository.findAll());
+        List<Skill> skillsSubList=skills.subList(2,skills.size());
+        model.addAttribute("skills",skillsSubList);
         return "talent-registration";
     }
 
@@ -88,6 +96,8 @@ public class UserController {
     @PostMapping("/talent-registration")
     public String registerTalent(@Valid @ModelAttribute("registrationObject") TalentRegistration registrationObject,
             Errors errors) {
+
+        
         if (errors.hasErrors()) {
             log.error("Validation error on register talent : /n {}", errors);
             return "talent-registration";
@@ -106,17 +116,40 @@ public class UserController {
         return "login";
     }
 
-    @GetMapping("/user-profile")
-    public String userProfile(Principal principal, Model model) {
-        User user = userRepository.findByUsername(principal.getName());
+    @GetMapping("/user-profile/{id}")
+    public String userProfile(@PathVariable Long id, Model model) {
+        User  user = userRepository.findById(id).get();
         model.addAttribute("user", user);
-        model.addAttribute("skills", skillRepository.findAll());
+        List<Skill>  skills =  ((List<Skill>) skillRepository.findAll());
+        List<Skill> skillsSubList=skills.subList(2,skills.size());
+        model.addAttribute("skills",skillsSubList);
         return "editProfile";
     }
 
     @PostMapping("/update-profile")
-    public String updateProfile(User user) {
-        userRepository.save(user);
+    public String updateProfile(Principal principal, User user) {
+        System.out.println("\n");
+        System.out.println("\n");
+        System.out.println("Inside post mapping");
+        System.out.println(principal.getName());
+        User user1 = userRepository.findByUsername(principal.getName());
+        System.out.println("\n");
+        System.out.println("\n");
+        System.out.println("\n");
+        // user1.setRole(user.getRole());
+        user1.setUsername(user.getUsername());
+        user1.setFirstName(user.getFirstName());
+        user1.setLastName(user.getLastName());
+        user1.setEmail(user.getEmail());
+        user1.setPhoneNumber(user.getPhoneNumber());
+        // user1.setSkill(user.getSkill());
+        String role = user1.getRole();
+        System.out.println("role: " + role);
+        user1.setRole(user1.getRole());
+        user1.setPassword(user1.getPassword());
+        user1.setSkill(user1.getSkill());
+        // user1.set
+        userRepository.save(user1);
         return "redirect:/user-profile";
     }
 
