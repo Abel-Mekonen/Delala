@@ -3,7 +3,7 @@ package com.delala.delala.project;
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
-import com.delala.delala.user.User;
+import com.delala.delala.user.CustomUserDetail;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -17,47 +17,47 @@ import org.springframework.web.servlet.ModelAndView;
 
 @Controller
 public class projectController {
-    
+
     @Autowired
     public ProjectService projectService;
-    
+
     @GetMapping("/home")
-    public ModelAndView relatedUpdates(@AuthenticationPrincipal User user){
-        return projectService.relatedUpdates(user);
+    public ModelAndView relatedUpdates(@AuthenticationPrincipal CustomUserDetail user) {
+        return projectService.relatedUpdates(user.getUser());
     }
 
     // @GetMapping("/")
     // public ModelAndView relatedUpdates(@AuthenticationPrincipal User user){
-    //     return relatedUpdates(user);
+    // return relatedUpdates(user);
     // }
 
     @GetMapping("/deleteProject")
-    public String deleteProject(@RequestAttribute("projectId") Long id,HttpServletRequest httpServletRequest){
-        return projectService.deleteProject(id,httpServletRequest);
+    public String deleteProject(@RequestAttribute("projectId") Long id, HttpServletRequest httpServletRequest) {
+        return projectService.deleteProject(id, httpServletRequest);
     }
 
     @GetMapping("/updateProject")
-    public ModelAndView updateProject(@RequestAttribute("projectId") Long id){
+    public ModelAndView updateProject(@RequestAttribute("projectId") Long id) {
         return projectService.updateProject(id);
     }
-    
+
     @PostMapping("/saveProject")
-    public String saveProject(@Valid @ModelAttribute("project")Project project,HttpServletRequest httpServletRequest,BindingResult bindingResult){
-        if(bindingResult.hasErrors()){
-            return "redirect:"+ httpServletRequest.getHeader("referer");
+    public String saveProject(@Valid @ModelAttribute("project") Project project, HttpServletRequest httpServletRequest,
+            BindingResult bindingResult) {
+        if (bindingResult.hasErrors()) {
+            return "redirect:" + httpServletRequest.getHeader("referer");
         }
-        return projectService.saveProject(project,httpServletRequest);
+        return projectService.saveProject(project, httpServletRequest);
     }
 
     @GetMapping("/projectList")
-    public ModelAndView projectList(){
+    public ModelAndView projectList() {
         return projectService.projectList();
     }
 
     @GetMapping("/createProject")
-    public ModelAndView createProject(){
+    public ModelAndView createProject() {
         return projectService.createProject();
     }
-
 
 }

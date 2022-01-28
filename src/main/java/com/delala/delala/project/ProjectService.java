@@ -4,6 +4,7 @@ import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 
+import com.delala.delala.skill.SkillRepository;
 import com.delala.delala.user.User;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,14 +17,18 @@ public class ProjectService {
     @Autowired
     public ProjectRepository projectRepository;
 
+    @Autowired
+    public SkillRepository skillRepository;
+
     public ModelAndView relatedUpdates(User user) {
         ModelAndView modelAndView = new ModelAndView("home");
         List<Project> projects = projectRepository.findBySkill(user.getSkill());
         modelAndView.addObject("projects", projects);
+        modelAndView.addObject("user", user);
         return modelAndView;
     }
 
-    public String deleteProject(Long id,HttpServletRequest httpServletRequest) {
+    public String deleteProject(Long id, HttpServletRequest httpServletRequest) {
         projectRepository.deleteById(id);
         return "redirect:" + httpServletRequest.getHeader("Referer");
     }
@@ -31,6 +36,7 @@ public class ProjectService {
     public ModelAndView createProject() {
         ModelAndView modelAndView = new ModelAndView("createproject");
         modelAndView.addObject("project", new Project());
+        modelAndView.addObject("skills", skillRepository.findAll());
         return modelAndView;
     }
 
@@ -42,9 +48,9 @@ public class ProjectService {
 
     }
 
-    public String saveProject(Project project,HttpServletRequest httpServletRequest) {
+    public String saveProject(Project project, HttpServletRequest httpServletRequest) {
         projectRepository.save(project);
-        return "redirect:"+ httpServletRequest.getHeader("referer");
+        return "redirect:" + httpServletRequest.getHeader("referer");
     }
 
     public ModelAndView projectList() {

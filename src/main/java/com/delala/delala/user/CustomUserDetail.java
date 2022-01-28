@@ -7,10 +7,13 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
+import lombok.Data;
 
-public class CustomUserDetail implements UserDetails{
+@Data
+public class CustomUserDetail implements UserDetails {
 
     private User user;
+
     public CustomUserDetail(User user) {
         this.user = user;
     }
@@ -49,5 +52,5 @@ public class CustomUserDetail implements UserDetails{
     public boolean isEnabled() {
         return true;
     }
-    
+
 }
