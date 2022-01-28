@@ -28,7 +28,7 @@ public class Project {
 
     @ManyToOne
     @JoinColumn(name="skill_id")
-    private Skill skillReq;
+    private Skill skill;
     
     @ManyToOne
     @JoinColumn(name="user_id")

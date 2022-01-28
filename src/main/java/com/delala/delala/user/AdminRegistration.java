@@ -3,6 +3,7 @@ package com.delala.delala.user;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 import org.springframework.security.crypto.password.PasswordEncoder;
 
@@ -29,7 +30,7 @@ public class AdminRegistration {
     @NotNull(message="First Name can't be null")
     @NotBlank(message="First Name can't be blank")
     private String role;
-    // TODO: anotate it with size.
+    @Size(min=10,max = 10,message = "Phone number must be 10 digits")
     private String phoneNumber;
 
    public User toUser(PasswordEncoder encoder) {

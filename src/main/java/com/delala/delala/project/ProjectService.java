@@ -21,9 +21,15 @@ public class ProjectService {
         return modelAndView;
     }
 
-    public String deleteProject(Long id){
+    public String deleteProject(Long id) {
         projectRepository.deleteById(id);
-        return "redirect:/" ; 
+        return "redirect:/";
+    }
+
+    public ModelAndView createProject() {
+        ModelAndView modelAndView = new ModelAndView("createproject");
+        modelAndView.addObject("project", new Project());
+        return modelAndView;
     }
 
     public ModelAndView updateProject(Long id) {
@@ -39,13 +45,11 @@ public class ProjectService {
         return "redirect:/";
     }
 
-    public ModelAndView projectList(){
-        ModelAndView modelAndView=new ModelAndView("");
-        List<Project> projects=projectRepository.findAll();
+    public ModelAndView projectList() {
+        ModelAndView modelAndView = new ModelAndView("");
+        List<Project> projects = projectRepository.findAll();
         modelAndView.addObject("projects", projects);
         return modelAndView;
     }
-
-
 
 }

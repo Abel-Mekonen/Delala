@@ -3,6 +3,9 @@ package com.delala.delala.user;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
+
+import com.delala.delala.skill.SkillRepository;
 
 import com.delala.delala.skill.SkillRepository;
 
@@ -13,27 +16,27 @@ import lombok.Data;
 
 @Data
 public class TalentRegistration {
-    @NotNull(message="Invalid Username")
-    @NotBlank(message="Username can't be blank")
+    @NotNull(message = "Invalid Username")
+    @NotBlank(message = "Username can't be blank")
     private String username;
-    @NotNull(message="Invalid Password")
-    @NotBlank(message="password can't be blank")
+    @NotNull(message = "Invalid Password")
+    @NotBlank(message = "password can't be blank")
     private String password;
-    @NotNull(message="Invalid Lastname")
-    @NotBlank(message="Last Name can't be blank")
+    @NotNull(message = "Invalid Lastname")
+    @NotBlank(message = "Last Name can't be blank")
     private String lastName;
-    @NotNull(message="Invalid Firstname")
-    @NotBlank(message="First Name can't be blank")
+    @NotNull(message = "Invalid Firstname")
+    @NotBlank(message = "First Name can't be blank")
     private String firstName;
-    @NotNull(message="Invalid email")
-    @NotBlank(message="First Name can't be blank")
-    @Email(message="NOt a valid email address")
+    @NotNull(message = "Invalid email")
+    @NotBlank(message = "First Name can't be blank")
+    @Email(message = "NOt a valid email address")
     private String email;
-    @NotNull(message="First Name can't be null")
-    @NotBlank(message="First Name can't be blank")
+    @NotNull(message = "First Name can't be null")
+    @NotBlank(message = "First Name can't be blank")
     private String role;
-    private String skill; 
-    // TODO: anotate it with size.
+    private String skill;
+    @Size(min = 10, max = 10, message = "Phone number must be 10 digits")
     private String phoneNumber;
 
     @Autowired 
