@@ -5,6 +5,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
 
 import com.delala.delala.skill.Skill;
@@ -24,7 +25,7 @@ public class Project {
     private String projectTitle;
     @NotBlank(message = "Project description is required")
     private String projectDescription;
-    @NotBlank(message = "Price is required")
+    @Min(10)
     private float price;
     @ManyToOne
     private Skill skill;

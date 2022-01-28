@@ -60,7 +60,7 @@ public class ProjectService {
         User user=userRepository.findByUsername(principal.getName());
         project.setUser(user);
         projectRepository.save(project);
-        return "redirect:" + httpServletRequest.getHeader("referer");
+        return "redirect:/myProjects";
     }
 
     public ModelAndView projectList() {

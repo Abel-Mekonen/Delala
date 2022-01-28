@@ -46,6 +46,7 @@ public class projectController {
     @PostMapping("/saveProject")
     public String saveProject(@Valid @ModelAttribute("project") Project project, HttpServletRequest httpServletRequest,
             BindingResult bindingResult,Principal principal) {
+        
         if (bindingResult.hasErrors()) {
             return "createproject";
         }

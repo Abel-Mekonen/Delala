@@ -87,6 +87,8 @@ public class UserController {
     @PostMapping("/talent-registration")
     public String registerTalent(@Valid @ModelAttribute("registrationObject") TalentRegistration registrationObject,
             Errors errors) {
+
+        
         if (errors.hasErrors()) {
             return "talent-registration";
         }
@@ -131,7 +133,7 @@ public class UserController {
     }
 
     @PostMapping("/delete-user")
-    public String deleteProject(@RequestAttribute Long id, HttpServletRequest httpServletRequest) {
+    public String deleteProject(@RequestAttribute("id") Long id, HttpServletRequest httpServletRequest) {
         userRepository.deleteById(id);
         return "redirect:" + httpServletRequest.getHeader("Referer");
     }
