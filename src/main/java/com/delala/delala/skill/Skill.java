@@ -12,21 +12,30 @@ import javax.persistence.OneToMany;
 import com.delala.delala.project.Project;
 import com.delala.delala.user.User;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Data
+@AllArgsConstructor
+@NoArgsConstructor
 @Entity
 public class Skill {
 
+    public Skill(String name) {
+        this.name = name;
+    }
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
     private String name;
     
-    @OneToMany
+    //added mapped by
+    @OneToMany(mappedBy="skill")
     private List<User> users;
 
-    @OneToMany
+    //added mapped by
+    @OneToMany(mappedBy="skill")
     private List<Project> projects;
 }
