@@ -5,12 +5,19 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
+import com.delala.delala.skill.SkillRepository;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 import lombok.Data;
 
 @Data
 public class AdminRegistration {
+
+    @Autowired 
+    SkillRepository skillRepository;
+
     @NotNull(message="Invalid Username")
     @NotBlank(message="Username can't be blank")
     private String username;
@@ -42,6 +49,7 @@ public class AdminRegistration {
        user.setPhoneNumber(this.phoneNumber);
        user.setPassword(encoder.encode(this.password));
        user.setRole("ADMIN");
+    //    user.setSkill(skillRepository.getById(1L));
        return user;
    }
 }

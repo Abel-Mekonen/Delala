@@ -16,12 +16,13 @@ public class LoginController {
     UserRepository userRepository;
     @GetMapping("/login")
     public String login(Model model, Principal principal) {
-        User currentlyLoggedInUser = userRepository.findByUsername(principal.getName());
+        // User currentlyLoggedInUser;
 
-        if (currentlyLoggedInUser != null) {
-            return "redirect:/logout";
-        }
-        model.addAttribute("userModel", new User());
+        // if (currentlyLoggedInUser != null) {
+        //     currentlyLoggedInUser = userRepository.findByUsername(principal.getName());
+        //     return "redirect:/logout";
+        // }
+        // model.addAttribute("userModel", new User());
         return "login";
     }
 }
