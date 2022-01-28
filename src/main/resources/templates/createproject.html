@@ -59,33 +59,40 @@
     <div class="container w-50 my-auto ">
         <div class="rounded shadow p-3">
             <h1>Post Project</h1>
-            <form action="">
+            <form th:action="@{/saveProject}" method="post" th:object="${project}">
                 <div class="mb-3">
-                    <label for="projecttitle" class="form-label">Title</label>
-                    <input type="text" class="form-control" name="" id="" placeholder="">
+                    <label for="projectTitle" class="form-label">Title</label>
+                    <input type="text" class="form-control" id="projectTitle" th:field="*{projectTitle}"
+                        th:errorclass="is-invalid">
+                    <div class="invalid-feedback">
+                        <span th:errors="*{projectTitle}"></span>
+                    </div>
                 </div>
                 <div class="mb-3">
-                    <label for="" class="form-label">Description</label>
-                    <textarea class="form-control" name="" id="" rows="3"></textarea>
+                    <label for="projectDescription" class="form-label">Description</label>
+                    <textarea class="form-control" id="projectDescription" rows="3" th:field="*{projectDescription}"
+                        th:errorclass="is-invalid"></textarea>
+                    <div class="invalid-feedback">
+                        <span th:errors="*{projectDescription}"></span>
+                    </div>
                 </div>
                 <div class="mb-3">
-                    <label for="" class="form-label">Price</label>
-                    <input type="number" class="form-control" name="" id="" placeholder="">
+                    <label for="price" class="form-label">Price</label>
+                    <input type="number" class="form-control" th:field="*{price}" id="price" th:errorclass="is-invalid">
+                    <div class="invalid-feedback">
+                        <span th:errors="*{price}"></span>
+                    </div>
                 </div>
                 <div class="mb-3">
-                    <label for="" class="form-label">Skills</label>
-                    <select multiple class="form-select" name="" id="">
-                        <option>C++</option>
-                        <option>P++</option>
+                    <label for="skill" class="form-label">Skills</label>
+                    <select class="form-select" th:field="*{skill}" id="skill" th:errorclass="is-invalid">
+                        <option th:each="sk : ${skills}" th:text="${sk.name}" th:value="${sk.id}">C++</option>
                     </select>
+                    <div class="invalid-feedback">
+                        <span th:errors="*{skill}"></span>
+                    </div>
                 </div>
                 <button type="submit" class="btn btn-primary">Post</button>
-                <!--
-                    title
-                    description
-                    price
-                    skills
-                -->
             </form>
         </div>
     </div>

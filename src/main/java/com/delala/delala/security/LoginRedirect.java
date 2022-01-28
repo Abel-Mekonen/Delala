@@ -22,16 +22,16 @@ public class LoginRedirect extends SimpleUrlAuthenticationSuccessHandler {
     @Override
     protected void handle(HttpServletRequest request, HttpServletResponse response, Authentication authentication)
             throws IOException, ServletException {
-            String targetUrl = determineTargetUrl(authentication);
+        String targetUrl = determineTargetUrl(authentication);
 
-            if (response.isCommitted()) {
-                logger.debug(
-                        "Response has already been committed. Unable to redirect to "
-                                + targetUrl);
-                return;
-            }
-            RedirectStrategy redirectStrategy = new DefaultRedirectStrategy();
-            redirectStrategy.sendRedirect(request, response, targetUrl);
+        if (response.isCommitted()) {
+            logger.debug(
+                    "Response has already been committed. Unable to redirect to "
+                            + targetUrl);
+            return;
+        }
+        RedirectStrategy redirectStrategy = new DefaultRedirectStrategy();
+        redirectStrategy.sendRedirect(request, response, targetUrl);
     }
 
     protected String determineTargetUrl(final Authentication authentication) {
@@ -39,17 +39,17 @@ public class LoginRedirect extends SimpleUrlAuthenticationSuccessHandler {
         Map<String, String> roleTargetUrlMap = new HashMap<>();
         roleTargetUrlMap.put("ROLE_ADMIN", "/admin-projects");
         roleTargetUrlMap.put("ROLE_TALENT", "/home");
-        roleTargetUrlMap.put("ROLE_EMPLOYER", "/myprojects");
-    
+        roleTargetUrlMap.put("ROLE_EMPLOYER", "/myProjects");
+
         final Collection<? extends GrantedAuthority> authorities = authentication.getAuthorities();
         for (final GrantedAuthority grantedAuthority : authorities) {
             String authorityName = grantedAuthority.getAuthority();
-            if(roleTargetUrlMap.containsKey(authorityName)) {
+            if (roleTargetUrlMap.containsKey(authorityName)) {
                 return roleTargetUrlMap.get(authorityName);
             }
         }
-    
+
         throw new IllegalStateException();
     }
-    
+
 }

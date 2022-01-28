@@ -19,7 +19,10 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.ModelAndView;
 
+import lombok.extern.slf4j.Slf4j;
+
 @Controller
+@Slf4j
 public class UserController {
 
     @Autowired
@@ -63,6 +66,7 @@ public class UserController {
     public String registerEmployer(@Valid @ModelAttribute("registerEmployer") EmployerRegistration employerRegistration,
             Errors errors) {
         if (errors.hasErrors()) {
+            log.error("Employer registration failed due to validation error : \n{}", errors);
             return "employer-registration";
         }
         User user = employerRegistration.toUser(passwordEncoder);
@@ -103,6 +107,7 @@ public class UserController {
     public String userProfile(Principal principal, Model model) {
         User user = userRepository.findByUsername(principal.getName());
         model.addAttribute("user", user);
+        model.addAttribute("skills", skillRepository.findAll());
         return "user-profile";
     }
 
