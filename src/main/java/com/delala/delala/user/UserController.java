@@ -13,6 +13,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -29,7 +30,7 @@ public class UserController {
 
     @Autowired
     SkillRepository skillRepository;
-    
+
     @GetMapping("/talent-registration")
     public String talentRegistration(Model model) {
         model.addAttribute("registrationObject", new TalentRegistration());
@@ -46,38 +47,44 @@ public class UserController {
     // @PostMapping("/talent-registration")
     // public String registerUser(TalentRegistration registrationObject) {
 
-    //     User user = registrationObject.toUser(passwordEncoder);
-    //     user = registeredUser(user, registrationObject.getSkill());
-    //     userRepository.save(user);
-    //     return "login";
+    // User user = registrationObject.toUser(passwordEncoder);
+    // user = registeredUser(user, registrationObject.getSkill());
+    // userRepository.save(user);
+    // return "login";
     // }
     @GetMapping("/registerEmployer")
-    public ModelAndView registerEmployer(){
-        ModelAndView modelAndView=new ModelAndView("employer-registration");
+    public ModelAndView registerEmployer() {
+        ModelAndView modelAndView = new ModelAndView("employer-registration");
         modelAndView.addObject("registerEmployer", new EmployerRegistration());
         return modelAndView;
     }
+
     @PostMapping("/reigsterEmployer")
-    public String registerEmployer(@Valid @ModelAttribute EmployerRegistration employerRegistration,BindingResult bindingResult){
-        if(bindingResult.hasErrors()){
+    public String registerEmployer(@Valid @ModelAttribute EmployerRegistration employerRegistration,
+            BindingResult bindingResult) {
+        if (bindingResult.hasErrors()) {
             return "employer-registration";
         }
-        User user=employerRegistration.toUser(passwordEncoder);
+        User user = employerRegistration.toUser(passwordEncoder);
         user.setSkill(skillRepository.findById(Long.parseLong("2")).get());
         userRepository.save(user);
         return "redirect:/login";
     }
 
-   @GetMapping("users")
-   public ModelAndView users(){
-       ModelAndView modelAndView=new ModelAndView("admin-users");
-       List<User> users=(List<User>) userRepository.findAll();
-       modelAndView.addObject("users", users);
-       return modelAndView;
-   }
+    @GetMapping("users")
+    public ModelAndView users() {
+        ModelAndView modelAndView = new ModelAndView("admin-users");
+        List<User> users = (List<User>) userRepository.findAll();
+        modelAndView.addObject("users", users);
+        return modelAndView;
+    }
 
     @PostMapping("/talent-registration")
-    public String registerTalent(TalentRegistration registrationObject) {
+    public String registerTalent(@Valid @ModelAttribute("registrationObject") TalentRegistration registrationObject,
+            Errors errors) {
+        if (errors.hasErrors()) {
+            return "talent-registration";
+        }
         User talentUser = registrationObject.toUser(passwordEncoder);
         talentUser = registeredUser(talentUser, registrationObject.getSkill());
         userRepository.save(talentUser);
@@ -118,7 +125,7 @@ public class UserController {
     }
 
     @GetMapping("/delete-User")
-    public String deleteProject(Long id,HttpServletRequest httpServletRequest) {
+    public String deleteProject(Long id, HttpServletRequest httpServletRequest) {
         userRepository.deleteById(id);
         return "redirect:" + httpServletRequest.getHeader("Referer");
     }
