@@ -5,8 +5,6 @@ import java.security.Principal;
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
-
-
 import org.springframework.beans.factory.annotation.Autowired;
 
 import org.springframework.stereotype.Controller;
@@ -15,6 +13,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestAttribute;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import lombok.extern.slf4j.Slf4j;
@@ -37,23 +36,23 @@ public class projectController {
     // }
 
     @GetMapping("/deleteProject")
-    public String deleteProject(@RequestAttribute("projectId") Long id, HttpServletRequest httpServletRequest) {
+    public String deleteProject(@RequestParam("projectId") Long id, HttpServletRequest httpServletRequest) {
         return projectService.deleteProject(id, httpServletRequest);
     }
 
     @GetMapping("/updateProject")
-    public ModelAndView updateProject(@RequestAttribute("projectId") Long id) {
+    public ModelAndView updateProject(@RequestParam("projectId") Long id) {
         return projectService.updateProject(id);
     }
 
     @PostMapping("/saveProject")
     public String saveProject(@Valid @ModelAttribute("project") Project project, HttpServletRequest httpServletRequest,
-            BindingResult bindingResult,Principal principal) {
+            BindingResult bindingResult, Principal principal) {
         if (bindingResult.hasErrors()) {
             log.error("Save project failed due to validation errors \n{}", bindingResult.getAllErrors());
             return "createproject";
         }
-        return projectService.saveProject(project, httpServletRequest,principal);
+        return projectService.saveProject(project, httpServletRequest, principal);
     }
 
     @GetMapping("/projectList")
