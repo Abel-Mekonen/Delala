@@ -18,6 +18,8 @@ public class DelalaApplication {
 	@Bean
 	public CommandLineRunner dataLoader(SkillRepository repo) {
 		return args -> {
+			repo.save(new Skill("ADMIN"));
+			repo.save(new Skill("EMPLOYER"));
 			repo.save(new Skill("Software Engineer"));
 			repo.save(new Skill("Electrical Engineer"));
 			repo.save(new Skill("UX Designer"));
