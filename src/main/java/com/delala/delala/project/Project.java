@@ -27,7 +27,7 @@ public class Project {
     @Size(min=5,max=15)
     private String projectTitle;
     @NotBlank(message = "Project description is required")
-    @Size(min=10,max=50)
+    @Size(min=10,max=100)
     private String projectDescription;
     @Min(10)
     private float price;
