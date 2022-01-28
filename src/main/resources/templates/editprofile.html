@@ -59,8 +59,8 @@
     <div class="container w-50 my-auto ">
         <div class="rounded shadow p-3">
             <h1>Profile</h1>
-            <form th:action="@{/update-profile}" method="post" th:object="${user}">
-                <input type="hidden" name="id" th:value="*{id}">
+            <form th:action="@{${'/update-profile/' + user.id}}" method="post" th:object="${user}">
+                <!-- <input type="hidden" name="id" th:value="*{id}"> -->
                 <div class="mb-3">
                     <label for="username" class="form-label">Username</label>
                     <input type="text" class="form-control disabled" id="username" th:field="*{username}"
@@ -69,11 +69,11 @@
                         <span th:errors="*{username}"></span>
                     </div>
                 </div>
-                <div class="mb-3">
+                <!-- <div class="mb-3">
                     <label for="password" class="form-label">Password</label>
                     <input type="password" class="form-control" id="password" th:field="*{password}"
                         th:errorclass="is-invalid">
-                </div>
+                </div> -->
                 <div class="mb-3">
                     <label for="firstname" class="form-label">First name</label>
                     <input type="text" class="form-control" th:field="*{firstName}" id="firstname"
