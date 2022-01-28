@@ -117,7 +117,7 @@ public class UserController {
         return user;
     }
 
-    @GetMapping("/deleteUser")
+    @GetMapping("/delete-User")
     public String deleteProject(Long id,HttpServletRequest httpServletRequest) {
         userRepository.deleteById(id);
         return "redirect:" + httpServletRequest.getHeader("Referer");

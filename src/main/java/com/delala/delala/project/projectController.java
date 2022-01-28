@@ -1,5 +1,7 @@
 package com.delala.delala.project;
 
+import java.security.Principal;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
@@ -22,8 +24,8 @@ public class projectController {
     public ProjectService projectService;
 
     @GetMapping("/home")
-    public ModelAndView relatedUpdates(@AuthenticationPrincipal CustomUserDetail user) {
-        return projectService.relatedUpdates(user.getUser());
+    public ModelAndView relatedUpdates(Principal principal) {
+        return projectService.relatedUpdates(principal);
     }
 
     // @GetMapping("/")

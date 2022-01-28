@@ -1,5 +1,6 @@
 package com.delala.delala.project;
 
+import java.security.Principal;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -20,11 +21,11 @@ public class ProjectService {
     @Autowired
     public SkillRepository skillRepository;
 
-    public ModelAndView relatedUpdates(User user) {
+    public ModelAndView relatedUpdates(Principal principal) {
         ModelAndView modelAndView = new ModelAndView("home");
-        List<Project> projects = projectRepository.findBySkill(user.getSkill());
+        List<Project> projects = projectRepository.findBySkill(((User) principal).getSkill());
         modelAndView.addObject("projects", projects);
-        modelAndView.addObject("user", user);
+        modelAndView.addObject("user", (User) principal);
         return modelAndView;
     }
 
