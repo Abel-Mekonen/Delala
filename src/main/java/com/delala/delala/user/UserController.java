@@ -6,6 +6,7 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
+import com.delala.delala.skill.Skill;
 import com.delala.delala.skill.SkillRepository;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -44,7 +45,9 @@ public class UserController {
     @GetMapping("/talent-registration")
     public String talentRegistration(Model model) {
         model.addAttribute("registrationObject", new TalentRegistration());
-        model.addAttribute("skills", skillRepository.findAll());
+        List<Skill>  skills =  ((List<Skill>) skillRepository.findAll());
+        List<Skill> skillsSubList=skills.subList(2,skills.size());
+        model.addAttribute("skills",skillsSubList);
         return "talent-registration";
     }
 
@@ -93,6 +96,8 @@ public class UserController {
     @PostMapping("/talent-registration")
     public String registerTalent(@Valid @ModelAttribute("registrationObject") TalentRegistration registrationObject,
             Errors errors) {
+
+        
         if (errors.hasErrors()) {
             log.error("Validation error on register talent : /n {}", errors);
             return "talent-registration";
@@ -116,7 +121,9 @@ public class UserController {
         // User  user = userRepository.findById(id).get();
         User user = userRepository.findByUsername(principal.getName());
         model.addAttribute("user", user);
-        model.addAttribute("skills", skillRepository.findAll());
+        List<Skill>  skills =  ((List<Skill>) skillRepository.findAll());
+        List<Skill> skillsSubList=skills.subList(2,skills.size());
+        model.addAttribute("skills",skillsSubList);
         return "editProfile";
     }
 

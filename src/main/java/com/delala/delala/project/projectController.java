@@ -1,29 +1,36 @@
 package com.delala.delala.project;
 
 import java.security.Principal;
+import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
+import com.delala.delala.skill.Skill;
+import com.delala.delala.skill.SkillRepository;
+
 import org.springframework.beans.factory.annotation.Autowired;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestAttribute;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import lombok.extern.slf4j.Slf4j;
 
 @Controller
-@Slf4j
+
 public class projectController {
 
     @Autowired
     public ProjectService projectService;
+
+    @Autowired
+    public SkillRepository skillRepository;
 
     @GetMapping("/home")
     public ModelAndView relatedUpdates(Principal principal) {
@@ -45,14 +52,18 @@ public class projectController {
         return projectService.updateProject(id);
     }
 
-    @PostMapping("/saveProject")
-    public String saveProject(@Valid @ModelAttribute("project") Project project, HttpServletRequest httpServletRequest,
-            BindingResult bindingResult, Principal principal) {
+    @PostMapping("/saveproject")
+    public String saveProject(@Valid @ModelAttribute("project") Project project, 
+            BindingResult bindingResult,Principal principal,Model model) {
+        
         if (bindingResult.hasErrors()) {
-            log.error("Save project failed due to validation errors \n{}", bindingResult.getAllErrors());
+            List<Skill>  skills =  ((List<Skill>) skillRepository.findAll());
+            List<Skill> skillsSubList=skills.subList(2,skills.size());
+            model.addAttribute("skills", skillsSubList);
             return "createproject";
+
         }
-        return projectService.saveProject(project, httpServletRequest, principal);
+        return projectService.saveProject(project, principal);
     }
 
     @GetMapping("/projectList")

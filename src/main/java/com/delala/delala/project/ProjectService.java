@@ -5,6 +5,7 @@ import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 
+import com.delala.delala.skill.Skill;
 import com.delala.delala.skill.SkillRepository;
 import com.delala.delala.user.User;
 import com.delala.delala.user.UserRepository;
@@ -43,23 +44,28 @@ public class ProjectService {
     public ModelAndView createProject() {
         ModelAndView modelAndView = new ModelAndView("createproject");
         modelAndView.addObject("project", new Project());
-        modelAndView.addObject("skills", skillRepository.findAll());
+        List<Skill>  skills =  ((List<Skill>) skillRepository.findAll());
+        List<Skill> skillsSubList=skills.subList(2,skills.size());
+        modelAndView.addObject("skills",skillsSubList);
         return modelAndView;
     }
 
     public ModelAndView updateProject(Long id) {
         ModelAndView modelAndView = new ModelAndView("editproject");
         Project project = projectRepository.findById(id).get();
+        List<Skill>  skills =  ((List<Skill>) skillRepository.findAll());
+        List<Skill> skillsSubList=skills.subList(2,skills.size());
+        modelAndView.addObject("skills",skillsSubList);
         modelAndView.addObject("project", project);
         return modelAndView;
 
     }
 
-    public String saveProject(Project project, HttpServletRequest httpServletRequest, Principal principal) {
+    public String saveProject(Project project,Principal principal) {
         User user = userRepository.findByUsername(principal.getName());
         project.setUser(user);
         projectRepository.save(project);
-        return "redirect:" + httpServletRequest.getHeader("referer");
+        return "redirect:/myProjects";
     }
 
     public ModelAndView projectList() {
