@@ -17,9 +17,9 @@ import lombok.Data;
 @Controller
 public class TalentRegistration {
 
-    @Autowired 
+    @Autowired
     SkillRepository skillRepository;
-    
+
     @NotNull(message = "Invalid Username")
     @NotBlank(message = "Username can't be blank")
     private String username;
@@ -36,23 +36,20 @@ public class TalentRegistration {
     @NotBlank(message = "First Name can't be blank")
     @Email(message = "NOt a valid email address")
     private String email;
-    @NotNull(message = "First Name can't be null")
-    @NotBlank(message = "First Name can't be blank")
-    private String role;
     private String skill;
     @Size(min = 10, max = 10, message = "Phone number must be 10 digits")
     private String phoneNumber;
 
-   public User toUser(PasswordEncoder encoder) {
-       User user = new User();
-       user.setFirstName(this.firstName);
-       user.setLastName(this.lastName);
-       user.setUsername(this.username);
-       user.setEmail(this.email);
-       user.setPhoneNumber(this.phoneNumber);
-       user.setPassword(encoder.encode(this.password));
-       user.setRole("TALENT");
-    //    System.out.println(skillRepository == null);
-       return user;
-   }
+    public User toUser(PasswordEncoder encoder) {
+        User user = new User();
+        user.setFirstName(this.firstName);
+        user.setLastName(this.lastName);
+        user.setUsername(this.username);
+        user.setEmail(this.email);
+        user.setPhoneNumber(this.phoneNumber);
+        user.setPassword(encoder.encode(this.password));
+        user.setRole("TALENT");
+        // System.out.println(skillRepository == null);
+        return user;
+    }
 }

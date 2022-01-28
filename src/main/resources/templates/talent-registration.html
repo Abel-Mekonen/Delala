@@ -81,7 +81,7 @@
                                 <select class="form-select" aria-label="Default select example" th:field="*{skill}"
                                     th:errorclass="is-invalid">
                                     <!-- <option selected>Open this select menu</option> -->
-                                    <option th:each="skill: ${skills}" th:value="${skill.id}" th:text="${skill.name}">
+                                    <option th:each="sk: ${skills}" th:value="${sk.id}" th:text="${sk.name}">
                                         skills
                                     </option>
                                 </select>
