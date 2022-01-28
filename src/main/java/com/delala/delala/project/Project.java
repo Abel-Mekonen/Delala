@@ -1,6 +1,5 @@
 package com.delala.delala.project;
 
-
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -24,15 +23,6 @@ public class Project {
     private Long id;
     private String projectTitle;
     private String projectDescription;
-    private String price;
-
-    @ManyToOne
-    @JoinColumn(name="skill_id")
-    private Skill skill;
-    
-    @ManyToOne
-    @JoinColumn(name="user_id")
-    private User user;
-
-    
+    private float price;
+    private Skill skilReq;
 }
