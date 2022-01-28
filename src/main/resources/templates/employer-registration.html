@@ -28,42 +28,64 @@
 
                     <div class="d-flex align-items-center h-custom-2 px-5 my-auto  ">
 
-                        <form th:action="@{/employer-registration}" th:object="${registrationObject}" style="width: 23rem;" method="POST">
+                        <form th:action="@{/registerEmployer}" th:object="${registerEmployer}" style="width: 23rem;"
+                            method="POST">
 
                             <h3 class="fw-normal mb-3 pb-3" style="letter-spacing: 1px;">Register</h3>
 
-                            <div class="form-outline mb-4">
-                                <input type="text" id="form2Example20" class="form-control form-control-lg" th:field="*{firstName}"/>
+                            <div class="form-outline mb-3">
+                                <input type="text" id="form2Example20" class="form-control form-control-lg"
+                                    th:field="*{firstName}" th:errorclass="is-invalid" />
                                 <label class="form-label" for="form2Example20">First Name</label>
-                            </div>
-
-                            <div class="form-outline mb-4">
-                                <input type="text" id="form2Example19" class="form-control form-control-lg" th:field="*{lastName}"/>
-                                <label class="form-label" for="form2Example19">Last Name</label>
-                            </div>
-
-                            <div class="form-outline mb-4">
-                                <input type="email" id="form2Example18" class="form-control form-control-lg" th:field="*{email}"/>
-                                <label class="form-label" for="form2Example18">Email address</label>
-                            </div>
-
-                            <div class="form-outline mb-4">
-                                <input type="text" id="form2Example1" class="form-control form-control-lg" th:field="*{username}"/>
-                                <label class="form-label" for="form2Example1">username</label>
-                            </div>
-
-                            <div class="form-outline mb-4">
-                                <input type="password" id="form2Example28" class="form-control form-control-lg" th:field="*{password}"/>
-                                <label class="form-label" for="form2Example28">Password</label>
-                            </div>
-
-                            <div class="mb-4">
-                                <input type="hidden" name="" id="credentials" class="is-invalid">
                                 <div class="invalid-feedback">
-                                    Please choose a username.
+                                    <span th:errors="*{firstName}"></span>
                                 </div>
                             </div>
-                            <div class="pt-1 mb-4">
+
+                            <div class="form-outline mb-3">
+                                <input type="text" id="form2Example19" class="form-control form-control-lg"
+                                    th:field="*{lastName}" th:errorclass="is-invalid" />
+                                <label class="form-label" for="form2Example19">Last Name</label>
+                                <div class="invalid-feedback">
+                                    <span th:errors="*{lastName}"></span>
+                                </div>
+                            </div>
+
+                            <div class="form-outline mb-3">
+                                <input type="email" id="form2Example18" class="form-control form-control-lg"
+                                    th:field="*{email}" th:errorclass="is-invalid" />
+                                <label class="form-label" for="form2Example18">Email address</label>
+                                <div class="invalid-feedback">
+                                    <span th:errors="*{email}"></span>
+                                </div>
+                            </div>
+
+                            <div class="form-outline mb-3">
+                                <input type="text" id="form2Example1" class="form-control form-control-lg"
+                                    th:field="*{username}" th:errorclass="is-invalid" />
+                                <label class="form-label" for="form2Example1">username</label>
+                                <div class="invalid-feedback">
+                                    <span th:errors="*{username}"></span>
+                                </div>
+                            </div>
+
+                            <div class="form-outline mb-3">
+                                <input type="password" id="form2Example28" class="form-control form-control-lg"
+                                    th:field="*{password}" th:errorclass="is-invalid" />
+                                <label class="form-label" for="form2Example28">Password</label>
+                                <div class="invalid-feedback">
+                                    <span th:errors="*{password}"></span>
+                                </div>
+                            </div>
+                            <div class="form-outline mb-3">
+                                <input type="tel" id="form2Example28" class="form-control form-control-lg"
+                                    th:field="*{phoneNumber}" th:errorclass="is-invalid" />
+                                <label class="form-label" for="form2Example28">Phone</label>
+                                <div class="invalid-feedback">
+                                    <span th:errors="*{phoneNumber}"></span>
+                                </div>
+                            </div>
+                            <div class="pt-1 mb-3">
                                 <button class="btn btn-primary btn-lg btn-block" type="submit">Register</button>
                             </div>
 

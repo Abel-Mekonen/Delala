@@ -28,31 +28,29 @@
 
                     <div class="d-flex align-items-center h-custom-2 px-5 my-auto  ">
 
-                        <form style="width: 23rem;">
+                        <form style="width: 23rem;" th:action="@{/login}" method="post">
 
                             <h3 class="fw-normal mb-3 pb-3" style="letter-spacing: 1px;">Log in</h3>
 
                             <div class="form-outline mb-4">
-                                <input type="email" id="form2Example18" class="form-control form-control-lg" />
-                                <label class="form-label" for="form2Example18">Email address</label>
+                                <input type="text" id="form2Example18" class="form-control form-control-lg"
+                                    name="username" />
+                                <label class="form-label" for="form2Example18">User name</label>
                             </div>
 
                             <div class="form-outline mb-4">
-                                <input type="password" id="form2Example28" class="form-control form-control-lg" />
+                                <input type="password" id="form2Example28" class="form-control form-control-lg"
+                                    name="password" />
                                 <label class="form-label" for="form2Example28">Password</label>
                             </div>
-                            <div class="mb-4">
-                                <input type="hidden" name="" id="credentials" class="is-invalid">
-                                <div class="invalid-feedback">
-                                    Please choose a username.
-                                </div>
-                            </div>
                             <div class="pt-1 mb-4">
-                                <button class="btn btn-primary btn-lg btn-block" type="button">Login</button>
+                                <button class="btn btn-primary btn-lg btn-block" type="submit">Login</button>
                             </div>
 
-                            <p>Don't have an account? <a href="#!" class="link-secondary">Register here</a></p>
-
+                            <p>Don't have an account?<br>
+                                <a th:href="@{/talent-registration}" class="link-secondary">Register as talent</a> <br>
+                                <a th:href="@{/registerEmployer}" class="link-secondary">Register as employer</a>
+                            </p>
                         </form>
 
                     </div>

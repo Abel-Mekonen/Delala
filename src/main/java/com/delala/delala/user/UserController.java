@@ -13,12 +13,18 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestAttribute;
 import org.springframework.web.servlet.ModelAndView;
 
+import lombok.extern.slf4j.Slf4j;
+
 @Controller
+@Slf4j
 public class UserController {
 
     @Autowired
@@ -29,7 +35,7 @@ public class UserController {
 
     @Autowired
     SkillRepository skillRepository;
-    
+
     @GetMapping("/talent-registration")
     public String talentRegistration(Model model) {
         model.addAttribute("registrationObject", new TalentRegistration());
@@ -46,38 +52,46 @@ public class UserController {
     // @PostMapping("/talent-registration")
     // public String registerUser(TalentRegistration registrationObject) {
 
-    //     User user = registrationObject.toUser(passwordEncoder);
-    //     user = registeredUser(user, registrationObject.getSkill());
-    //     userRepository.save(user);
-    //     return "login";
+    // User user = registrationObject.toUser(passwordEncoder);
+    // user = registeredUser(user, registrationObject.getSkill());
+    // userRepository.save(user);
+    // return "login";
     // }
     @GetMapping("/registerEmployer")
-    public ModelAndView registerEmployer(){
-        ModelAndView modelAndView=new ModelAndView("employer-registration");
+    public ModelAndView registerEmployer() {
+        ModelAndView modelAndView = new ModelAndView("employer-registration");
         modelAndView.addObject("registerEmployer", new EmployerRegistration());
         return modelAndView;
     }
-    @PostMapping("/reigsterEmployer")
-    public String registerEmployer(@Valid @ModelAttribute EmployerRegistration employerRegistration,BindingResult bindingResult){
-        if(bindingResult.hasErrors()){
+
+    @PostMapping("/registerEmployer")
+    public String registerEmployer(@Valid @ModelAttribute("registerEmployer") EmployerRegistration employerRegistration,
+            Errors errors) {
+        if (errors.hasErrors()) {
+            log.error("Employer registration failed due to validation error : \n{}", errors);
             return "employer-registration";
         }
-        User user=employerRegistration.toUser(passwordEncoder);
+        User user = employerRegistration.toUser(passwordEncoder);
         user.setSkill(skillRepository.findById(Long.parseLong("2")).get());
         userRepository.save(user);
         return "redirect:/login";
     }
 
-   @GetMapping("users")
-   public ModelAndView users(){
-       ModelAndView modelAndView=new ModelAndView("admin-users");
-       List<User> users=(List<User>) userRepository.findAll();
-       modelAndView.addObject("users", users);
-       return modelAndView;
-   }
+    @GetMapping("users")
+    public ModelAndView users() {
+        ModelAndView modelAndView = new ModelAndView("admin-users");
+        List<User> users = (List<User>) userRepository.findAll();
+        modelAndView.addObject("users", users);
+        return modelAndView;
+    }
 
     @PostMapping("/talent-registration")
-    public String registerTalent(TalentRegistration registrationObject) {
+    public String registerTalent(@Valid @ModelAttribute("registrationObject") TalentRegistration registrationObject,
+            Errors errors) {
+        if (errors.hasErrors()) {
+            log.error("Validation error on register talent : /n {}", errors);
+            return "talent-registration";
+        }
         User talentUser = registrationObject.toUser(passwordEncoder);
         talentUser = registeredUser(talentUser, registrationObject.getSkill());
         userRepository.save(talentUser);
@@ -96,6 +110,7 @@ public class UserController {
     public String userProfile(Principal principal, Model model) {
         User user = userRepository.findByUsername(principal.getName());
         model.addAttribute("user", user);
+        model.addAttribute("skills", skillRepository.findAll());
         return "editProfile";
     }
 
@@ -117,8 +132,8 @@ public class UserController {
         return user;
     }
 
-    @GetMapping("/deleteUser")
-    public String deleteProject(Long id,HttpServletRequest httpServletRequest) {
+    @PostMapping("/delete-user/{id}")
+    public String deleteProject(@PathVariable("id") Long id, HttpServletRequest httpServletRequest) {
         userRepository.deleteById(id);
         return "redirect:" + httpServletRequest.getHeader("Referer");
     }
