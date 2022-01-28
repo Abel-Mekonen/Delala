@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServletRequest;
 import com.delala.delala.skill.SkillRepository;
 import com.delala.delala.user.User;
 import com.delala.delala.user.UserRepository;
+import com.fasterxml.jackson.annotation.JsonCreator.Mode;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -63,6 +64,14 @@ public class ProjectService {
     public ModelAndView projectList() {
         ModelAndView modelAndView = new ModelAndView("admin-projects");
         List<Project> projects = projectRepository.findAll();
+        modelAndView.addObject("projects", projects);
+        return modelAndView;
+    }
+
+    public ModelAndView myReports(Principal principal){
+        ModelAndView modelAndView=new ModelAndView("myprojects");
+        User user=userRepository.findByUsername(principal.getName());
+        List<Project> projects=projectRepository.findByUser(user);
         modelAndView.addObject("projects", projects);
         return modelAndView;
     }
