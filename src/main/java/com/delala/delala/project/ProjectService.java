@@ -68,7 +68,7 @@ public class ProjectService {
         return modelAndView;
     }
 
-    public ModelAndView myReports(Principal principal){
+    public ModelAndView myProjects(Principal principal){
         ModelAndView modelAndView=new ModelAndView("myprojects");
         User user=userRepository.findByUsername(principal.getName());
         List<Project> projects=projectRepository.findByUser(user);
