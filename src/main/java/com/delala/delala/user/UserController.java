@@ -129,16 +129,7 @@ public class UserController {
 
     @PostMapping("/update-profile")
     public String updateProfile(Principal principal, User user) {
-        System.out.println("\n");
-        System.out.println("\n");
-        System.out.println("Inside post mapping");
-        System.out.println(principal.getName());
         User user1 = userRepository.findByUsername(principal.getName());
-        System.out.println("\n");
-        System.out.println("\n");
-        System.out.println("\n");
-        // user1.setRole(user.getRole());
-        user1.setUsername(user.getUsername());
         user1.setFirstName(user.getFirstName());
         user1.setLastName(user.getLastName());
         user1.setEmail(user.getEmail());
@@ -149,6 +140,7 @@ public class UserController {
         user1.setRole(user1.getRole());
         user1.setPassword(user1.getPassword());
         user1.setSkill(user1.getSkill());
+        user1.setUsername(user1.getUsername());
         // user1.set
         userRepository.save(user1);
         return "redirect:/user-profile";
