@@ -19,7 +19,7 @@
 <body>
     <div th:replace="fragments/nav"></div>
     <div class="container-fluid">
-        <div class="row row-cols-4 mt-5 g-4 align-items-stretch">
+        <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 row-cols-xl-5  mt-3 g-4 align-items-stretch">
             <div class="col" th:each="project : ${projects}" th:object="${project}">
                 <div class="card shadow border-0">
                     <div class="card-body">
